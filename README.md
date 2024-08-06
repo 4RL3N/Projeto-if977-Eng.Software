@@ -1,4 +1,4 @@
-# Plataforma UniMail
+# Plataforma de Organização de Informaçãoes no E-mail do CIn-UFPE
 
 O projeto visa criar uma plataforma inovadora para organizar e gerenciar eficientemente as entradas de email na universidade, inicialmente focada no Centro de Informática (CIn) da Universidade Federal de Pernambuco (UFPE).
 
