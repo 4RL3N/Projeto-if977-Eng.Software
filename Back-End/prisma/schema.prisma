@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -35,11 +29,12 @@ model Postagem {
   valor Int
   contato String
   cidade String
-  estado String
   foto String
   criadoEm DateTime @default(now())
   atualizadoEm DateTime @updatedAt
-  endereco String
+  bairro String
+  acomodacao String
+  tipo_acomodacao String
   cliente Cliente @relation(fields: [clienteId], references: [id])
   clienteId String @db.ObjectId
   autorizada Boolean @default(false)

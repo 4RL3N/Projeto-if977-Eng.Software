@@ -1,15 +1,17 @@
-import mongoose from 'mongoose';
+import { Schema as _Schema, model } from 'mongoose'
+const Schema = _Schema
 
-const userSchema = new mongoose.Schema({
+const usuarioSchema = new Schema({
+  CPF: { type: String, required: true, unique: true },
+  contato: { type: String, required: true },
+  foto: { type: String },
+  nome: { type: String, required: true },
+  desc: { type: String },
+  categoria: { type: String, enum: ['Admin', 'Republica', 'Usuario'], required: true },
   email: { type: String, required: true, unique: true },
   senha: { type: String, required: true },
-  contato: { type: String, required: true },
-  CPF: { type: String, required: true },
-  foto: { type: String, required: true },
-  desc: { type: String, required: true },
-  categoria: { type: String, required: true },
-  postagens: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Postagem' }], // Array de referências a postagens
-});
+  postagens: [{ type: _Schema.Types.ObjectId, ref: 'Postagem' }]
+})
 
-const User = mongoose.model('User', userSchema);
-module.exports = User;
+const Usuario = model('Usuario', usuarioSchema)
+export default Usuario
