@@ -15,7 +15,8 @@ const postagemSchema = new Schema({
   acomodacao: { type: String, required: true },
   tipo_acomodacao: { type: String, required: true },
   cliente: { type: _Schema.Types.ObjectId, ref: 'Usuario', required: true },
-  autorizada: { type: Boolean, default: false }
+  autorizada: { type: Boolean, default: false },
+  motivo:{type: String}
 })
 
 const Postagem = model('Postagem', postagemSchema)
