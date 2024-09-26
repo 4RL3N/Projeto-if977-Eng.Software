@@ -12,11 +12,19 @@ const postagemSchema = new Schema({
   criadoEm: { type: Date, default: Date.now },
   atualizadoEm: { type: Date, default: Date.now },
   bairro: { type: String, required: true },
-  acomodacao: { type: String, required: true },
-  tipo_acomodacao: { type: String, required: true },
+  acomodacao: { 
+    type: String, 
+    enum: ['Quarto', 'Casa'], 
+    required: true 
+  },
+  tipo_acomodacao: { 
+    type: String, 
+    enum: ['Individual', 'Compartilhado'], 
+    required: true 
+  },
   cliente: { type: _Schema.Types.ObjectId, ref: 'Usuario', required: true },
   autorizada: { type: Boolean, default: false },
-  motivo:{type: String}
+  motivo: { type: String }
 })
 
 const Postagem = model('Postagem', postagemSchema)

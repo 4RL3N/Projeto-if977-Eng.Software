@@ -14,7 +14,7 @@ model Cliente{
   foto String
   nome String
   desc String
-  categoria String // Admin, republica ou usuário
+  categoria String 
   email String @unique
   senha String
   postagens Postagem[]
