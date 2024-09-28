@@ -29,7 +29,7 @@ model Postagem {
   valor Int
   contato String
   cidade String
-  foto String
+  fotos String[]
   criadoEm DateTime @default(now())
   atualizadoEm DateTime @updatedAt
   bairro String

@@ -53,13 +53,14 @@ export const listarPostagensComFiltros = async (req, res) => {
 
 
 export const criarPostagem = async (req, res) => {
-  const { titulo, desc, categoria, valor, contato, cidade, bairro, acomodacao, tipo_acomodacao, foto } = req.body
+  const { titulo, desc, categoria, valor, contato, cidade, bairro, acomodacao, tipo_acomodacao} = req.body
 
   if (!titulo || !desc || !categoria || !valor || !contato || !cidade || !bairro || !acomodacao || !tipo_acomodacao) {
     return res.status(400).json({ error: 'Todos os campos obrigatórios devem ser preenchidos' })
   }
 
   try {
+    
     const novaPostagem = new Postagem({
       titulo,
       desc,
@@ -70,7 +71,7 @@ export const criarPostagem = async (req, res) => {
       bairro,
       acomodacao,
       tipo_acomodacao,
-      foto,
+      fotos: [], 
       cliente: req.userId
     })
 
@@ -81,6 +82,7 @@ export const criarPostagem = async (req, res) => {
     res.status(500).json({ error: 'Erro ao criar postagem' })
   }
 }
+
 
 export const editarPostagem = async (req, res) => {
   const { id } = req.params
@@ -189,3 +191,38 @@ export const obterPostagemPorId = async (req, res) => {
     res.status(500).json({ error: 'Erro ao obter a postagem' })
   }
 }
+
+
+export const adicionarImagem = async (req, res) => {
+  try {
+    const { id } = req.params
+
+    
+    const postagem = await Postagem.findById(id)
+    if (!postagem) {
+      console.log(id)
+      return res.status(404).json({ error: 'Postagem não encontrada' })
+    }
+
+    
+    if (!req.files || req.files.length === 0) {
+      return res.status(400).json({ error: 'Nenhuma imagem enviada' })
+    }
+
+    
+    req.files.forEach(file => {
+      postagem.fotos.push(file.location) 
+    })
+
+    
+    await postagem.save()
+
+    res.status(200).json(postagem) 
+  } catch (error) {
+    res.status(500).json({ error: 'Erro ao adicionar imagem', detalhe: error.message })
+  }
+}
+
+
+
+
