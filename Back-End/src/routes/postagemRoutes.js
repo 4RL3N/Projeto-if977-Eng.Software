@@ -1,5 +1,5 @@
-import { authenticateUser } from "../middlewares/authMiddleware"
-import { authenticateAdmin } from "../middlewares/adminAuthMiddleware"
+import { authenticateUser } from "../middlewares/authMiddleware.js"
+import { authenticateAdmin } from "../middlewares/adminAuthMiddleware.js"
 import { listarPostagensDoUsuario, 
     listarTodasPostagens, 
     listarPostagensComFiltros,
@@ -11,7 +11,7 @@ import { listarPostagensDoUsuario,
     obterPostagemPorId
 
 
- } from "../controller/postagemController"
+ } from "../controller/postagemController.js"
 import express from 'express'
 
 const router = express.Router()
@@ -19,15 +19,17 @@ const router = express.Router()
 router.get('/minhas-postagens', authenticateUser, listarPostagensDoUsuario )
 router.get('/postagens-admin', authenticateAdmin, listarTodasPostagens )
 router.get('/postagens', authenticateUser, listarPostagensComFiltros)
-router.get('/postagem', authenticateUser, obterPostagemPorId)
+router.get('/postagem/:id', authenticateUser, obterPostagemPorId)
 
 router.post('/criar-post', authenticateUser, criarPostagem)
 
-router.patch('/editar-post/:id-post', authenticateUser, editarPostagem)
-router.patch('/aprovar-post/:id-post', authenticateAdmin, aprovarPostagem)
-router.patch('/desaprovar-post/:id-post', authenticateAdmin, desaprovarPostagem)
+router.patch('/editar-post/:id', authenticateUser, editarPostagem)
+router.patch('/aprovar-post/:id', authenticateAdmin, aprovarPostagem)
+router.patch('/desaprovar-post/:id', authenticateAdmin, desaprovarPostagem)
 
-router.delete('/deletar-post/:id-post', authenticateUser, deletarPostagem)
+router.delete('/deletar-post/:id', authenticateUser, deletarPostagem)
+
+export default router
 
 
 

@@ -31,7 +31,7 @@ export const listarPostagensDoUsuario = async (req, res) => {
 
 export const listarPostagensComFiltros = async (req, res) => {
   const { cidade, bairro, faculdade, acomodacao, tipo_acomodacao } = req.query
-  const filtros = {}
+  const filtros = { autorizada: true }
 
   if (cidade) filtros.cidade = cidade
   if (bairro) filtros.bairro = bairro
@@ -79,7 +79,7 @@ export const criarPostagem = async (req, res) => {
 
     res.status(201).json(postagemSalva)
   } catch (error) {
-    res.status(500).json({ error: 'Erro ao criar postagem' })
+    res.status(500).json({ error: 'Erro ao criar postagem', detalhe: error })
   }
 }
 
@@ -89,7 +89,7 @@ export const editarPostagem = async (req, res) => {
   const { titulo, desc, categoria, valor, contato, cidade, bairro, acomodacao, tipo_acomodacao, foto } = req.body
 
   try {
-    const postagem = await Postagem.findOne({ _id: id, cliente: req.userId })
+    const postagem = await Postagem.findById({ _id: id, cliente: req.userId })
 
     if (!postagem) {
       return res.status(404).json({ error: 'Postagem não encontrada ou você não tem permissão para editar' })
@@ -118,15 +118,16 @@ export const deletarPostagem = async (req, res) => {
   const { id } = req.params
 
   try {
-    const postagem = await Postagem.findOne({ _id: id, cliente: req.userId })
+    const postagem = await Postagem.findById({ _id: id, cliente: req.userId })
 
     if (!postagem) {
       return res.status(404).json({ error: 'Postagem não encontrada ou você não tem permissão para deletar' })
     }
 
-    await postagem.remove()
+    await postagem.deleteOne()
     res.status(200).json({ message: 'Postagem deletada com sucesso' })
   } catch (error) {
+    console.log(error)
     res.status(500).json({ error: 'Erro ao deletar a postagem' })
   }
 }
