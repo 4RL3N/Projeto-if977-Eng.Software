@@ -1,23 +1,24 @@
 import jwt from 'jsonwebtoken'
+import Usuario from '../models/User.js'
 
 
-export const authenticateAdmin = (req, res, next) => {
-  const token = req.headers['Authorization']
+export const authenticateAdmin = async (req, res, next) => {
+  const token = req.headers['authorization']
   if (!token) {
     return res.status(401).json({ error: 'Token não fornecido' })
   }
 
   try {
     const decoded = jwt.verify(token.replace('Bearer ', ''), process.env.JWT_SECRET)
-    req.user = decoded
+    req.userId = decoded.id
 
-    
-    if (req.user.categoria !== 'Admin') {
+    const user = await Usuario.findById(req.userId)
+    if (user.categoria !== 'Admin') {
       return res.status(403).json({ error: 'Acesso negado. Somente admins podem visualizar esta rota.' })
     }
 
     next()
   } catch (error) {
-    return res.status(403).json({ error: 'Token inválido' })
+    return res.status(403).json({ error: 'Token inválido', details: error })
   }
 }
