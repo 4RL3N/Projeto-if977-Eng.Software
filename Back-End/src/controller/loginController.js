@@ -63,3 +63,22 @@ export const logarUsuario = async (req, res) => {
   }
 
 
+// criar lógica de 'esqueceu senha?' e 'redefinir senha' aqui
+export const esqueceuSenha = async (req, res) => {
+  const { email } = req.body
+
+  try {
+    const usuario = await Usuario.findOne({ email })
+    if (!usuario) {
+      return res.status(404).json({ message: 'Usuário não encontrado.' })
+    }
+
+    // lógica de envio de email com link para redefinir senha
+    res.status(200).json({ message: 'Email de redefinição de senha enviado com sucesso.' })
+
+  } catch (error) {
+    console.error('Erro ao enviar email de redefinição de senha:', error)
+    res.status(500).json({ error: 'Erro interno no servidor.' })
+  }
+}
+
