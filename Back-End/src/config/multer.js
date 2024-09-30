@@ -6,28 +6,39 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
+let s3
 
-const s3 = new S3Client({
-  region: process.env.AWS_DEFAULT_REGION,
-  credentials: {
-      accessKeyId: process.env.AWS_ACESS_KEY_ID ,
-      secretAccessKey: process.env.AWS_SECRET_ACESS_KEY 
-  }
-})
+
+try {
+  s3 = new S3Client({
+    region: process.env.AWS_DEFAULT_REGION,
+    credentials: {
+      accessKeyId: process.env.AWS_ACESS_KEY_ID,
+      secretAccessKey: process.env.AWS_SECRET_ACESS_KEY
+    }
+  })
+} catch (error) {
+  console.error('Erro ao inicializar o cliente S3:', error)
+  throw new Error('Erro ao configurar o serviço de armazenamento S3.')
+}
+
+const generateFileName = (req, file, cb) => {
+  crypto.randomBytes(16, (err, hash) => {
+    if (err) {
+      console.error('Erro ao gerar hash para o nome do arquivo:', err)
+      return cb(new Error('Erro ao processar o arquivo, tente novamente mais tarde.'))
+    }
+    const fileName = `${hash.toString('hex')}-${file.originalname}`
+    cb(null, fileName)
+  })
+}
 
 const storage = multerS3({
   s3: s3,
   bucket: process.env.BUCKET_NAME,
   contentType: multerS3.AUTO_CONTENT_TYPE,
   acl: 'public-read',
-  key: (req, file, cb) => {
-    crypto.randomBytes(16, (err, hash) => {
-      if (err) cb(err)
-
-      const fileName = `${hash.toString('hex')}-${file.originalname}`
-      cb(null, fileName)
-    })
-  }
+  key: generateFileName
 })
 
 const upload = multer({
@@ -36,6 +47,7 @@ const upload = multer({
     fileSize: 10 * 1024 * 1024 
   },
   fileFilter: (req, file, cb) => {
+    
     const allowedMimes = [
       'image/jpeg',
       'image/pjpeg',
@@ -46,9 +58,13 @@ const upload = multer({
     if (allowedMimes.includes(file.mimetype)) {
       cb(null, true)
     } else {
-      cb(new Error('Tipo de arquivo inválido.'))
+      const mimeError = new Error('Tipo de arquivo inválido. Apenas JPEG, PNG, ou JPG são permitidos.')
+      mimeError.code = 'INVALID_FILE_TYPE'
+      console.warn(`Arquivo com MIME type inválido: ${file.mimetype}`)
+      
+      cb(mimeError)
     }
   }
-})
+}).array('fotos', 10) 
 
-export default upload
+export { upload }

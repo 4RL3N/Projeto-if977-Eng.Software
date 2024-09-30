@@ -1,7 +1,7 @@
 
 import { criarUsuario,
     logarUsuario
- } from "../controller/loginController.js"
+ } from "../controllers/loginController.js"
 import express from 'express'
 import { authenticateUser } from "../middlewares/authMiddleware.js"
 

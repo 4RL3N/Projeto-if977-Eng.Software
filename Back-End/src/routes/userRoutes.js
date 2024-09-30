@@ -1,7 +1,7 @@
 import { listarDadosUsuario,
     editarUsuario,
     deletarUsuario
-} from "../controller/userController.js"
+} from "../controllers/userController.js"
 import { authenticateUser } from "../middlewares/authMiddleware.js"
 import express from 'express'
 
