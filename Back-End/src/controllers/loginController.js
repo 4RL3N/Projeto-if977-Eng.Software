@@ -8,6 +8,7 @@ export const logarUsuario = async (req, res) => {
   try {
     const usuario = await Usuario.findOne({ email })
     if (!usuario) {
+      
       return res.status(404).json({ message: 'Usuário não encontrado.' })
     }
 
