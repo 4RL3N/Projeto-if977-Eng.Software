@@ -8,8 +8,6 @@ const handleUploadError = (err, req, res, next) => {
       } else if (err.code === 'INVALID_FILE_TYPE') {
         return res.status(400).json({ error: err.message })
       } else {
-        console.error('Erro geral no upload:', err)
-        
         return res.status(500).json({ error: 'Erro interno ao processar o upload. Tente novamente mais tarde.', details: err })
       }
     }
