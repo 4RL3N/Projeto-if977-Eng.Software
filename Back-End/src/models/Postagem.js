@@ -8,7 +8,7 @@ const postagemSchema = new Schema({
   valor: { type: Number, required: true },
   contato: { type: String, required: true },
   cidade: { type: String, required: true },
-  foto: { type: String },
+  fotos: { type: [String] },
   criadoEm: { type: Date, default: Date.now },
   atualizadoEm: { type: Date, default: Date.now },
   bairro: { type: String, required: true },

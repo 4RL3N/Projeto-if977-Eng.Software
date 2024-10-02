@@ -20,3 +20,5 @@ app.listen(PORT, () => {
 mongoose.connect(process.env.DATABASE_URL)
   .then(() => console.log('Conectado ao MongoDB!'))
   .catch((error) => console.error('Erro ao conectar no MongoDB:', error))
+
+export default app
