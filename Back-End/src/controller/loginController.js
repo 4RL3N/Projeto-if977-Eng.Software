@@ -2,6 +2,8 @@ import Usuario from '../models/User.js'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 
+const sendMail = require('../services/nodemailer.js')
+
 export const logarUsuario = async (req, res) => {
   const { email, senha } = req.body
 
@@ -54,7 +56,10 @@ export const logarUsuario = async (req, res) => {
         email,
         senha: senhaHash
       })
-  
+      
+      // confirmar email
+      sendMail(email, 'Confirmação de email', 'Clique no link para confirmar seu email.')
+      
       res.status(201).json(usuario)
     } catch (error) {
       console.error('Erro ao criar usuário:', error)
@@ -73,8 +78,8 @@ export const esqueceuSenha = async (req, res) => {
       return res.status(404).json({ message: 'Usuário não encontrado.' })
     }
 
-    // lógica de envio de email com link para redefinir senha
-    res.status(200).json({ message: 'Email de redefinição de senha enviado com sucesso.' })
+    // chamar a função sendMail aqui
+    sendMail(email, 'Redefinição de senha', 'Clique no link para redefinir sua senha.')
 
   } catch (error) {
     console.error('Erro ao enviar email de redefinição de senha:', error)
@@ -82,3 +87,12 @@ export const esqueceuSenha = async (req, res) => {
   }
 }
 
+const sendMail = async (req, res) => {
+  const {
+    to, subject, text
+  } = req.body
+
+  sendMail(to, subject, text)
+
+  return json({ message: 'Email enviado com sucesso.' })
+}
