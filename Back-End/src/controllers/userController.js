@@ -3,8 +3,12 @@ import Postagem from "../models/Postagem.js"
 import Usuario from "../models/User.js"
 import jwt from 'jsonwebtoken'
 import MAIL_USER from "../services/nodemailer.js"
+import MAIL_PASS from "../services/nodemailer.js"
+import MAIL_FROM from "../services/nodemailer.js"
+import MAIL_HOST from "../services/nodemailer.js"
+import MAIL_PORT from "../services/nodemailer.js"
 import JWT_SECRET from "../services/nodemailer.js"
-import sgMail from '@sendgrid/mail'
+import nodemailer from 'nodemailer'
 
 export const listarDadosUsuario = async (req, res) => {
     try {
@@ -82,11 +86,6 @@ export const deletarUsuario = async (req, res) => {
     }
 }
 
-
-// Configurando a chave de API do SendGrid
-sgMail.setApiKey(SENDGRID_API_KEY)
-
-// Função para solicitar redefinição de senha (enviar e-mail usando SendGrid)
 export const redefinirSenha = async (req, res) => {
   const { email } = req.body
 
@@ -102,20 +101,33 @@ export const redefinirSenha = async (req, res) => {
     const token = jwt.sign({ userId: usuario._id }, JWT_SECRET, { expiresIn: '1h' })
     const url = `http://localhost:3000/reset-password/${token}`
 
-    // Conteúdo do e-mail
-    const msg = {
-      to: email, // E-mail do usuário
-      from: MAIL_USER, // Seu e-mail registrado no SendGrid
+    // Configurar Nodemailer para enviar o e-mail
+    const transporter = nodemailer.createTransport({
+      host: MAIL_HOST,  // Definido no .env
+      port: MAIL_PORT,  // Definido no .env
+      auth: {
+        user: MAIL_USER,  // Definido no .env
+        pass: MAIL_PASS   // Definido no .env
+      },
+      secure: false,  // false para TLS
+      tls: {
+        rejectUnauthorized: false
+      }
+    })
+
+    // Opções do e-mail
+    const mailOptions = {
+      from: MAIL_FROM,  // Definido no .env
+      to: email,
       subject: 'Redefinição de Senha',
       html: `<p>Clique no link para redefinir sua senha: <a href="${url}">Redefinir Senha</a></p>`
     }
 
-    // Enviar o e-mail usando SendGrid
-    await sgMail.send(msg)
+    // Enviar o e-mail
+    await transporter.sendMail(mailOptions)
     res.status(200).json({ message: 'E-mail de redefinição de senha enviado.' })
 
   } catch (error) {
-    console.error(error)
     res.status(500).json({ error: 'Erro ao enviar e-mail de redefinição de senha.', detalhes: error })
   }
 }
