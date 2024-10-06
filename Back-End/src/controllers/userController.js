@@ -27,7 +27,7 @@ export const listarDadosUsuario = async (req, res) => {
 
 export const editarUsuario = async (req, res) => {
     const { userId } = req
-    const { CPF, contato, foto, nome, desc, categoria, email, senha } = req.body
+    const { CPF, nome, email, senha } = req.body
 
     try{
         const usuario = await Usuario.findById({ _id: userId, cliente: req.userId })
@@ -37,11 +37,9 @@ export const editarUsuario = async (req, res) => {
         }
 
         usuario.CPF = CPF || usuario.CPF
-        usuario.contato = contato || usuario.contato
+        
         usuario.foto = foto || usuario.foto
         usuario.nome = nome || usuario.nome
-        usuario.desc = desc || usuario.desc
-        usuario.categoria = categoria || usuario.categoria
         usuario.email = email || usuario.email
         usuario.senha = senha || usuario.senha
 
@@ -72,7 +70,7 @@ export const deletarUsuario = async (req, res) => {
 
         res.status(200).json({ message: 'Usuário e suas postagens deletadas com sucesso.' })
     } catch (error) {
-        console.error('Erro ao deletar usuário:', error) // Log do erro
+        console.error('Erro ao deletar usuário:', error) 
         res.status(500).json({ error: 'Erro interno ao deletar usuário.' })
     }
 }
