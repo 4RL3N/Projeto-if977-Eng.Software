@@ -27,9 +27,9 @@ export const logarUsuario = async (req, res) => {
 }
 
   export const criarUsuario = async (req, res) => {
-    const { CPF, contato, foto, nome, desc, categoria, email, senha } = req.body
+    const { CPF, nome, email, senha } = req.body
   
-    if (!CPF || !contato || !nome || !categoria || !email || !senha) {
+    if (!CPF || !nome || !email || !senha) {
       return res.status(400).json({ error: 'Todos os campos obrigatórios devem ser preenchidos' })
     }
   
@@ -47,11 +47,7 @@ export const logarUsuario = async (req, res) => {
       
       const usuario = await Usuario.create({
         CPF,
-        contato,
-        foto,
         nome,
-        desc,
-        categoria,
         email,
         senha: senhaHash
       })
