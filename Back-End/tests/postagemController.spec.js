@@ -949,17 +949,112 @@ describe('POSTAGENS Controller', () => {
       expect(res.json).toHaveBeenCalledWith({ error: 'Erro ao adicionar imagem', detalhe: 'Erro no servidor' }) 
     
   })
-   
-  
-
 })
   
 
-})})
+})
 
+describe('Controller: esqueceuSenha', () => {
+  test('deve enviar email de redefinição de senha com sucesso', async () => {
+    const mockUser = { _id: '123', email: 'teste@teste.com' };
+    
+    // Mock do método findOne do modelo Usuario
+    Usuario.findOne = jest.fn().mockResolvedValue(mockUser);
 
+    // Mock do sendMail
+    sendMail = jest.fn().mockResolvedValue(true);
 
+    const response = await request(app)
+      .post('/esqueceu-senha')
+      .send({ email: 'teste@teste.com' });
 
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual({ message: 'Email de redefinição de senha enviado com sucesso.' });
+    expect(Usuario.findOne).toHaveBeenCalledWith({ email: 'teste@teste.com' });
+    expect(sendMail).toHaveBeenCalled();
+  });
 
+  test('deve retornar 404 se o email não for encontrado', async () => {
+    Usuario.findOne = jest.fn().mockResolvedValue(null);
 
+    const response = await request(app)
+      .post('/esqueceu-senha')
+      .send({ email: 'naoexiste@teste.com' });
+
+    expect(response.status).toBe(404);
+    expect(response.body).toEqual({ message: 'Usuário não encontrado.' });
+    expect(Usuario.findOne).toHaveBeenCalledWith({ email: 'naoexiste@teste.com' });
+  });
+
+  test('deve retornar 500 em caso de erro ao enviar o email', async () => {
+    Usuario.findOne = jest.fn().mockResolvedValue({ _id: '123', email: 'teste@teste.com' });
+    sendMail = jest.fn().mockRejectedValue(new Error('Falha ao enviar email'));
+
+    const response = await request(app)
+      .post('/esqueceu-senha')
+      .send({ email: 'teste@teste.com' });
+
+    expect(response.status).toBe(500);
+    expect(response.body).toEqual({ error: 'Erro interno no servidor.' });
+  });
+});
+
+describe('Controller: redefinirSenha', () => {
+  const token = jwt.sign({ id: '123' }, process.env.JWT_SECRET, { expiresIn: '1h' });
+  
+  test('deve redefinir a senha com sucesso', async () => {
+    const mockUser = { _id: '123', senha: 'senha_antiga' };
+    
+    // Mock do método findById do modelo Usuario
+    Usuario.findById = jest.fn().mockResolvedValue(mockUser);
+
+    // Mock do bcrypt.hash
+    bcrypt.hash = jest.fn().mockResolvedValue('senha_nova_hash');
+
+    const response = await request(app)
+      .post(`/redefinir-senha/${token}`)
+      .send({ senha: 'novaSenha123' });
+
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual({ message: 'Senha redefinida com sucesso.' });
+    expect(Usuario.findById).toHaveBeenCalledWith('123');
+    expect(bcrypt.hash).toHaveBeenCalled();
+  });
+
+  test('deve retornar 400 se a senha não for fornecida', async () => {
+    const response = await request(app)
+      .post(`/redefinir-senha/${token}`)
+      .send({ senha: '' });
+
+    expect(response.status).toBe(400);
+    expect(response.body).toEqual({ error: 'Senha é obrigatória' });
+  });
+
+  test('deve retornar 404 se o usuário não for encontrado', async () => {
+    Usuario.findById = jest.fn().mockResolvedValue(null);
+
+    const response = await request(app)
+      .post(`/redefinir-senha/${token}`)
+      .send({ senha: 'novaSenha123' });
+
+    expect(response.status).toBe(404);
+    expect(response.body).toEqual({ error: 'Usuário não encontrado' });
+    expect(Usuario.findById).toHaveBeenCalledWith('123');
+  });
+
+  test('deve retornar 500 em caso de erro ao redefinir a senha', async () => {
+    Usuario.findById = jest.fn().mockImplementation(() => {
+      throw new Error('Erro ao redefinir senha');
+    });
+
+    const response = await request(app)
+      .post(`/redefinir-senha/${token}`)
+      .send({ senha: 'novaSenha123' });
+
+    expect(response.status).toBe(500);
+    expect(response.body).toEqual({ error: 'Erro interno no servidor.' });
+  });
+
+});
+});
 
