@@ -1,0 +1,123 @@
+body {
+    display: flex;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+}
+
+.sidebar {
+    width: 220px;
+    background-color: #B41116;
+    height: 88vh;
+    padding: 20px 0;
+    position: fixed;
+    left: 20px;
+    top: 20px;
+    margin-bottom: 20px;
+    border-radius: 25px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);}
+
+.sidebar nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar nav ul li {
+    margin: 15px 0;
+}
+
+.sidebar nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    padding: 10px;
+    display: block;
+}
+
+.sidebar nav ul li a:hover, .sidebar nav ul li a.active {
+    background-color: #4f1717;
+    border-radius: 25px;
+}
+
+.content {
+    margin-left: 240px;
+    padding: 40px;
+    width: calc(100% - 240px);
+    box-sizing: border-box;
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #2d2d2d;
+}
+
+.card {
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ad-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.ad-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.ad-details {
+    max-width: 60%;
+}
+
+.ad-details h2 {
+    margin: 0 0 10px 0;
+    color: #2d2d2d;
+}
+
+.ad-details p {
+    margin: 0;
+    color: #666;
+    font-size: 14px;
+}
+
+.approve-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.approve-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.approve-button.accept {
+    background-color: #28a745;
+}
+
+.approve-button.reject {
+    background-color: #dc3545;
+}
+
+.approve-button img {
+    width: 20px;
+    height: 20px;
+}

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selecione os Filtros</title>
+    <link rel="stylesheet" href="filtros-anuncio.css">
+</head>
+<body>
+    <div class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="#"><img src="../img/Search.png" alt="Filtrar" class="sidebar-icon"> Filtrar Anúncios</a></li>
+                <li><a href="#"><img src="../img/Icon - Contas.png" alt="Anúncios" class="sidebar-icon"> Meus Anúncios</a></li>
+                <li><a href="#"><img src="../img/Edit.png" alt="Editar" class="sidebar-icon"> Editar Conta</a></li>
+                <li><a href="#" class="active"><img src="../img/Good Quality.png" alt="Aprovações" class="sidebar-icon"> Aprovações</a></li>
+                <li><a href="#"><img src="../img/Logout Rounded.png" alt="Sair" class="sidebar-icon"> Sair</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="content">
+        <h1>Selecione os Filtros</h1>
+        <form id="filtroForm" class="filtro-form">
+            <div class="filter-group">
+                <label>Acomodação</label>
+                <div class="options">
+                    <input type="radio" id="acomodacao-individual" name="acomodacao" value="Individual">
+                    <label for="acomodacao-individual">Individual</label>
+                    <input type="radio" id="acomodacao-compartilhado" name="acomodacao" value="Compartilhado">
+                    <label for="acomodacao-compartilhado">Compartilhado</label>
+                </div>
+            </div>
+            <div class="filter-group">
+                <label>Tipo de Acomodação</label>
+                <div class="options">
+                    <input type="radio" id="tipo-quarto" name="tipoAcomodacao" value="Quarto">
+                    <label for="tipo-quarto">Quarto</label>
+                    <input type="radio" id="tipo-casa" name="tipoAcomodacao" value="Casa">
+                    <label for="tipo-casa">Casa</label>
+                </div>
+            </div>
+            <div class="filter-group">
+                <label for="universidade">Universidade</label>
+                <select id="universidade" name="universidade">
+                    <option value="">Escolha sua Universidade</option>
+                    <option value="UFPE">UFPE</option>
+                    <option value="UFRPE">UFRPE</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="cidade">Cidade</label>
+                <input type="text" id="cidade" name="cidade" placeholder="Escolha a Cidade">
+            </div>
+            <div class="filter-group">
+                <label for="preco">Preço</label>
+                <select id="preco" name="preco">
+                    <option value="">Escolha o Intervalo de Preço</option>
+                    <option value="0-500">0 - 500</option>
+                    <option value="500-1000">500 - 1000</option>
+                    <option value="1000+">1000+</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="bairro">Bairro</label>
+                <input type="text" id="bairro" name="bairro" placeholder="Escolha o Bairro">
+            </div>
+            <div class="button-group">
+                <button type="submit" class="btn-submit">Buscar</button>
+                <button type="reset" class="btn-reset">Limpar filtros</button>
+            </div>
+        </form>
+    </div>
+    <script src="filtros-anuncio.js"></script>
+</body>
+</html>
