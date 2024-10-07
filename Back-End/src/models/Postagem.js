@@ -25,9 +25,7 @@ const postagemSchema = new Schema({
   },
   cliente: { type: _Schema.Types.ObjectId, ref: 'Usuario', required: true },
   autorizada: { type: Boolean, default: false },
-  motivo: { type: String },
-  rua:{type: String, required:true},
-  numero: {type: String, required: true}
+  motivo: { type: String }
 })
 
 const Postagem = model('Postagem', postagemSchema)

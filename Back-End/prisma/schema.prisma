@@ -42,8 +42,6 @@ model Postagem {
   clienteId String @db.ObjectId
   autorizada Boolean @default(false)
   motivo String?
-  numero String
-  rua String
 }
 
 
