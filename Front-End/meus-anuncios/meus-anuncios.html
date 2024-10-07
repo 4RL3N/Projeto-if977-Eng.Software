@@ -37,22 +37,26 @@
             <h2>Publique seu Anúncio</h2>
             <form id="publicarForm">
                 <!-- Acomodação e Tipo de Acomodação -->
+                <!-- Tipo de Acomodação -->
                 <div class="filter-group">
-                    <label for="acomodacao">Acomodação:</label>
-                    <select id="acomodacao" name="acomodacao" required>
-                        <option value="">Escolher tipos de acomodação</option>
-                        <option value="Individual">Individual</option>
-                        <option value="Compartilhada">Compartilhada</option>
-                    </select>
+                <label for="tipoAcomodacao">Tipo de Acomodação:</label>
+                <select id="tipoAcomodacao" name="tipo_acomodacao" required>
+                    <option value="">Escolher tipo de acomodação</option>
+                    <option value="Quarto">Quarto</option>
+                    <option value="Casa">Casa</option>
+                </select>
                 </div>
+
+                <!-- Acomodação -->
                 <div class="filter-group">
-                    <label for="tipoAcomodacao">Tipo de Acomodação:</label>
-                    <select id="tipoAcomodacao" name="tipo_acomodacao" required>
-                        <option value="">Escolher tipo de acomodação</option>
-                        <option value="Quarto">Quarto</option>
-                        <option value="Casa">Casa</option>
-                    </select>
+                <label for="acomodacao">Acomodação:</label>
+                <select id="acomodacao" name="acomodacao" required>
+                    <option value="">Escolher acomodação</option>
+                    <option value="Individual">Individual</option>
+                    <option value="Compartilhado">Compartilhado</option>
+                </select>
                 </div>
+
 
                 <!-- Endereço -->
                 <fieldset>

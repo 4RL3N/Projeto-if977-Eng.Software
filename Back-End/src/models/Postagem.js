@@ -2,11 +2,11 @@ import { Schema as _Schema, model } from 'mongoose'
 const Schema = _Schema
 
 const postagemSchema = new Schema({
-  titulo: { type: String, required: true },
+
   desc: { type: String, required: true },
-  categoria: { type: String, required: true },
+  
   valor: { type: Number, required: true },
-  contato: { type: String, required: true },
+ 
   cidade: { type: String, required: true },
   fotos: { type: [String] },
   criadoEm: { type: Date, default: Date.now },

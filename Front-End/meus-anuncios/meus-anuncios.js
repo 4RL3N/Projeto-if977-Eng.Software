@@ -3,65 +3,105 @@ document.addEventListener('DOMContentLoaded', async () => {
     const modal = document.getElementById('modal');
     const btnAbrirModal = document.getElementById('btnAbrirModal');
     const spanFechar = document.querySelector('.close');
-    const fotosInput = document.getElementById('fotos'); // Campo de imagem
-
-    btnAbrirModal.onclick = () => {
-        modal.style.display = 'flex';
-    };
-
-    spanFechar.onclick = () => {
-        modal.style.display = 'none';
-    };
-
-    window.onclick = (event) => {
-        if (event.target === modal) {
-            modal.style.display = 'none';
-        }
-    };
-
     const publicarForm = document.getElementById('publicarForm');
 
+    // Abrir o modal ao clicar no botão
+    btnAbrirModal.onclick = () => {
+        modal.style.display = 'flex';
+    }
+
+    // Fechar o modal ao clicar no "x"
+    spanFechar.onclick = () => {
+        modal.style.display = 'none';
+    }
+
+    // Fechar o modal ao clicar fora dele
+    window.onclick = (event) => {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    }
+
+    // Enviar o formulário
     publicarForm.addEventListener('submit', async (event) => {
         event.preventDefault();
-        const formData = new FormData(publicarForm);
-
+    
+        // Coletar dados do formulário
+        const data = {
+            titulo: document.getElementById('titulo').value,
+            desc: document.getElementById('descricao').value,
+            categoria: document.getElementById('categoria').value,
+            valor: document.getElementById('valor').value,
+            contato: document.getElementById('contato').value,
+            cidade: document.getElementById('cidade').value,
+            universidade: document.getElementById('universidade').value,
+            bairro: document.getElementById('bairro').value,
+            acomodacao: document.getElementById('tipoAcomodacao').value, // Deve ser 'Quarto' ou 'Casa'
+            tipo_acomodacao: document.getElementById('acomodacao').value, // Deve ser 'Individual' ou 'Compartilhado'
+            rua: document.getElementById('rua').value,
+            numero: document.getElementById('numero').value
+        };
+    
         try {
             const response = await fetch('http://localhost:4000/api/criar-post', {
                 method: 'POST',
                 headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                    'Content-Type': 'application/json'
                 },
-                body: formData
+                body: JSON.stringify(data)
             });
-
+    
             if (!response.ok) {
-                throw new Error('Erro ao publicar o anúncio. Tente novamente.');
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Erro ao publicar o anúncio. Tente novamente.');
             }
-
+    
             const novoAnuncio = await response.json();
             alert('Anúncio publicado com sucesso!');
-
+    
+            // Verifica se há imagens para adicionar
             if (fotosInput.files.length > 0) {
                 await adicionarImagem(novoAnuncio._id, fotosInput.files);
             }
-
+    
             modal.style.display = 'none';
             carregarAnuncios();
         } catch (error) {
             console.error('Erro:', error);
-            alert('Erro ao publicar o anúncio. Tente novamente.');
+            alert(error.message);
         }
     });
+    
 
-    async function carregarAnuncios() {
+    // Função para enviar imagens
+    async function enviarImagens(anuncioId, fotos) {
+        const formData = new FormData();
+        fotos.forEach((foto) => {
+            formData.append('fotos', foto);
+        });
+
         try {
-            const response = await fetch('http://localhost:4000/api/minhas-postagens', {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                }
+            const response = await fetch(`https://api.exemplo.com/anuncios/${anuncioId}/fotos`, {
+                method: 'POST',
+                body: formData
             });
 
+            if (!response.ok) {
+                throw new Error('Erro ao enviar as imagens.');
+            }
+
+            alert('Imagens enviadas com sucesso!');
+        } catch (error) {
+            console.error('Erro ao enviar as imagens:', error);
+            alert('Erro ao enviar as imagens. Tente novamente.');
+        }
+    }
+
+    // Função para carregar anúncios
+    async function carregarAnuncios() {
+        try {
+            const response = await fetch('https://api.exemplo.com/meus-anuncios');
             const anuncios = await response.json();
             anunciosContainer.innerHTML = '';
 
@@ -71,13 +111,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                 card.innerHTML = `
                     <div class="ad-info">
-                        <img class="ad-image" src="${anuncio.fotos[0] || 'default-image.png'}" alt="Imagem do Anúncio">
+                        <img class="ad-image" src="${anuncio.imageUrl}" alt="Imagem do Anúncio">
                         <div class="ad-details">
-                            <h2>${anuncio.titulo}</h2>
-                            <p>${anuncio.desc}</p>
+                            <h2>${anuncio.title}</h2>
+                            <p>${anuncio.description}</p>
                         </div>
                     </div>
-                    <button class="delete-button" data-id="${anuncio._id}">
+                    <button class="delete-button" data-id="${anuncio.id}">
                         <img src="delete-icon.png" alt="Excluir">
                     </button>
                 `;
@@ -100,10 +140,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     async function deleteAnuncio(anuncioId) {
         try {
-            const response = await fetch(`http://localhost:4000/api/deletar-post/${anuncioId}`, {
+            const response = await fetch(`https://api.exemplo.com/anuncios/${anuncioId}`, {
                 method: 'DELETE',
                 headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    'Content-Type': 'application/json'
                 }
             });
 
@@ -116,32 +156,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         } catch (error) {
             console.error('Erro ao excluir o anúncio:', error);
             alert('Erro ao excluir o anúncio. Tente novamente.');
-        }
-    }
-
-    async function adicionarImagem(postId, files) {
-        const formData = new FormData();
-        for (let i = 0; i < files.length; i++) {
-            formData.append('fotos', files[i]);
-        }
-
-        try {
-            const response = await fetch(`http://localhost:4000/api/adicionar-imagem/${postId}`, {
-                method: 'PATCH',
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                },
-                body: formData
-            });
-
-            if (!response.ok) {
-                throw new Error('Erro ao adicionar imagem. Tente novamente.');
-            }
-
-            alert('Imagem adicionada com sucesso!');
-        } catch (error) {
-            console.error('Erro ao adicionar imagem:', error);
-            alert('Erro ao adicionar imagem. Tente novamente.');
         }
     }
 
