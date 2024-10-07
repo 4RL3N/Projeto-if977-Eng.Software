@@ -1,20 +1,27 @@
-import { createTransport } from 'nodemailer'
+import nodemailer from 'nodemailer'
+import sendgridTransport from 'nodemailer-sendgrid-transport'
 
-const transporter = createTransport({
-    host: process.env.EMAIL_HOST,
-    port: process.env.EMAIL_PORT,
-    auth: {
-        object: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS}
-})
+// Configura o transportador usando a API Key do SendGrid
+const transporter = nodemailer.createTransport(sendgridTransport({
+  auth: {
+    api_key: process.env.SENDGRID_API_KEY // Variável de ambiente com sua API Key
+  }
+}))
 
-const sendMail = (to, subject, text) => {
-    transporter.sendMail({
-        from: process.env.MAIL_FROM,
-        to,
-        subject,
-        text
+// Função para enviar email
+const sendMail = async (to, subject, text) => {
+  try {
+    await transporter.sendMail({
+      from: 'partufpe@gmail.com', // De onde o email será enviado (precisa ser um email verificado no SendGrid)
+      to,
+      subject,
+      text
     })
+    console.log('Email enviado com sucesso')
+  } catch (error) {
+    console.error('Erro ao enviar email:', error)
+    throw error
+  }
 }
 
 export default sendMail

@@ -1,6 +1,6 @@
 import Usuario from "../models/User.js"
 import Postagem from "../models/Postagem.js"
-import Usuario from "../models/User.js"
+
 
 
 export const listarDadosUsuario = async (req, res) => {
@@ -11,8 +11,6 @@ export const listarDadosUsuario = async (req, res) => {
         .populate('contato')
         .populate('foto')
         .populate('nome')
-        .populate('desc')
-        .populate('categoria')
         .populate('email')
   
       if (!usuario) {
@@ -29,7 +27,7 @@ export const listarDadosUsuario = async (req, res) => {
 
 export const editarUsuario = async (req, res) => {
     const { userId } = req
-    const { CPF, nome, email, senha } = req.body
+    const { CPF, nome, email, senha, contato, desc } = req.body
 
     try{
         const usuario = await Usuario.findById({ _id: userId, cliente: req.userId })
@@ -40,10 +38,12 @@ export const editarUsuario = async (req, res) => {
 
         usuario.CPF = CPF || usuario.CPF
         
-        usuario.foto = foto || usuario.foto
+      
         usuario.nome = nome || usuario.nome
         usuario.email = email || usuario.email
         usuario.senha = senha || usuario.senha
+        usuario.contato = contato || usuario.contato
+        usuario.desc = desc || usuario.desc
 
         const usuarioSalvo = await usuario.save()
 
@@ -82,7 +82,7 @@ export const adicionarImagem = async (req, res) => {
     const {userId} = req
     
 
-    const usuario = Usuario.findById(userId)
+    const usuario = await Usuario.findById(userId)
 
     if (!req.file) {
       return res.status(400).json({ error: 'Nenhuma imagem enviada' })
@@ -90,10 +90,11 @@ export const adicionarImagem = async (req, res) => {
 
     usuario.foto.push(req.file.location)
 
-    await Usuario.save()
+    await usuario.save()
 
     res.status(200).json(usuario)
   } catch (error) {
+    console.log(error)
     res.status(500).json({ error: 'Erro ao adicionar imagem', detalhe: error.message })
   }
 }

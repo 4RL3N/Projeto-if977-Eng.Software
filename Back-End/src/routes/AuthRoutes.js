@@ -13,7 +13,7 @@ router.post('/login', logarUsuario)
 
 router.post('/criar-usuario', criarUsuario)
 
-router.post('/confirmar-email/:id', confirmarEmail)
+router.post('/confirmar-email/:token', confirmarEmail)
 
 router.post('/esqueceu-senha', esqueceuSenha)
 

@@ -1,5 +1,9 @@
 # Plataforma de Organização de Informaçãoes no E-mail do CIn-UFPE
 
+<h1 vertical-align= "middle">
+  <img src="https://github.com/Alexramoss/Projeto-ES-2023.2/assets/93000795/d5406222-3948-4e09-b4fe-521dd665cfd9" alt="Logo CIn"     height=200px width=200px> <img src="https://github.com/Alexramoss/Projeto-ES-2023.2/assets/93000795/165974cb-1fe2-45b2-ba05-13d7c526f1cf" alt="Logo UFPE" height=200px width=300px>
+</h1>
+
 O projeto visa criar uma plataforma inovadora para organizar e gerenciar eficientemente as entradas de email na universidade, inicialmente focada no Centro de Informática (CIn) da Universidade Federal de Pernambuco (UFPE).
 
 ## Índice

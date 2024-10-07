@@ -33,30 +33,38 @@ export const logarUsuario = async (req, res) => {
 export const criarUsuario = async (req, res) => {
   const { CPF, nome, email } = req.body
 
-  if (!CPF || !nome || !email) {
+  const senha = '-'
+
+  if (!CPF || !nome || !email || !senha) {
     return res.status(400).json({ error: 'Todos os campos obrigatórios devem ser preenchidos' })
   }
 
   try {
-    const usuarioExistente = await Usuario.findOne({ email })
+    // Verifica se já existe um usuário com o mesmo CPF e com email validado
+    const usuarioExistente = await Usuario.findOne({
+      CPF,
+      emailisvalid: true
+    })
     if (usuarioExistente) {
-      return res.status(409).json({ error: 'Usuário com este email ou CPF já existe' })
+      return res.status(409).json({ error: 'CPF já está associado a um email confirmado' })
     }
 
-    
+    // Cria o usuário com o status do CPF como pendente e email não validado
     const usuario = await Usuario.create({
       CPF,
       nome,
       email,
-      senha: '',
-      emailIsValid: false
+      senha,
+      categoria: 'Usuario',
+      emailisvalid: false,
+      CPFStatus: 'pendente'
     })
 
-    
+    // Gera o token para confirmação do email
     const token = jwt.sign({ id: usuario._id }, process.env.JWT_SECRET, { expiresIn: '1h' })
     const confirmacaoUrl = `${process.env.FRONTEND_URL}/confirmar-email/${token}`
 
-    
+    // Envia o email de confirmação
     await sendMail(email, 'Confirmação de email', `Clique no link para confirmar seu email: ${confirmacaoUrl}`)
 
     res.status(201).json({ message: 'Usuário criado com sucesso. Verifique seu email para confirmar a conta.' })
@@ -75,7 +83,7 @@ export const confirmarEmail = async (req, res) => {
   }
 
   try {
-    
+    // Decodifica o token e busca o usuário
     const decoded = jwt.verify(token, process.env.JWT_SECRET)
     const usuario = await Usuario.findById(decoded.id)
 
@@ -83,12 +91,23 @@ export const confirmarEmail = async (req, res) => {
       return res.status(404).json({ error: 'Usuário não encontrado' })
     }
 
-    
+    // Verifica se já existe outro usuário com o mesmo email validado
+    const emailJaValidado = await Usuario.findOne({
+      email: usuario.email,
+      emailisvalid: true
+    })
+
+    if (emailJaValidado) {
+      return res.status(409).json({ error: 'Já existe um usuário com este email validado' })
+    }
+
+    // Atualiza a senha e confirma o email e o CPF
     const salt = await bcrypt.genSalt(10)
     const senhaHash = await bcrypt.hash(senha, salt)
 
     usuario.senha = senhaHash
     usuario.emailisvalid = true
+    usuario.CPFStatus = 'confirmado'
     await usuario.save()
 
     res.status(200).json({ message: 'Email confirmado e senha definida com sucesso.' })
@@ -97,6 +116,8 @@ export const confirmarEmail = async (req, res) => {
     res.status(500).json({ error: 'Erro interno no servidor.' })
   }
 }
+
+
 
 
 

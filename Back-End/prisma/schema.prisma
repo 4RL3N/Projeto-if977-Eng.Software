@@ -10,13 +10,16 @@ datasource db {
 model Cliente{
   id String @id @default(auto()) @map("_id") @db.ObjectId
   CPF String @unique 
-  foto String
+  foto String[]
   nome String 
-  email String @unique
+  email String 
   senha String
   categoria String @default("Usuario")
-  emailisvalid  Boolean
+  emailisvalid  Boolean @default(false)
+  CPFStatus String
   postagens Postagem[]
+  contato  String @default("undefined")
+  desc String 
 
 }
 
@@ -39,6 +42,8 @@ model Postagem {
   clienteId String @db.ObjectId
   autorizada Boolean @default(false)
   motivo String?
+  numero String
+  rua String
 }
 
 
