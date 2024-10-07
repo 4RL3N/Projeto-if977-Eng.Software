@@ -17,7 +17,7 @@ router.patch('/editar-usuario', authenticateUser, editarUsuario)
 
 router.delete('/deletar-usuario', authenticateUser, deletarUsuario)
 
-router.patch('/adicionar-imagem/:id', authenticateUser, upload, handleUploadError, adicionarImagem)
+router.patch('/adicionar-imagem/', authenticateUser, upload, handleUploadError, adicionarImagem)
 
 
 

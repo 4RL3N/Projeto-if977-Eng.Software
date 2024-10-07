@@ -10,7 +10,7 @@ datasource db {
 model Cliente{
   id String @id @default(auto()) @map("_id") @db.ObjectId
   CPF String @unique 
-  foto String
+  foto String[]
   nome String 
   email String 
   senha String
@@ -18,6 +18,8 @@ model Cliente{
   emailisvalid  Boolean @default(false)
   CPFStatus String
   postagens Postagem[]
+  contato  String @default("undefined")
+  desc String 
 
 }
 
