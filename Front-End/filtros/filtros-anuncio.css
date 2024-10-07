@@ -86,6 +86,32 @@ select {
     outline: none;
 }
 
+input[type="radio"] {
+    display: none;
+}
+
+/* Estilo dos botões de rádio quando não selecionados */
+.options label {
+    border: 2px solid #B41116;
+    border-radius: 25px;
+    padding: 10px 20px;
+    color: #B41116;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Estilo dos botões de rádio quando selecionados */
+input[type="radio"]:checked + label {
+    background-color: #B41116;
+    color: white;
+}
+
+/* Efeito de hover nos botões */
+.options label:hover {
+    background-color: #f2dede;
+}
+
+
 button {
     padding: 15px;
     font-size: 16px;
