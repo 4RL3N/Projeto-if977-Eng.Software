@@ -4,9 +4,16 @@ import mongoose from 'mongoose'
 import authRoutes from './routes/AuthRoutes.js'
 import userRoutes from './routes/userRoutes.js'
 import postagemRoutes from './routes/postagemRoutes.js'
+import cors from 'cors'
 
 const app = express()
 app.use(express.json())
+
+
+
+app.use(cors({
+  origin: 'http://127.0.0.1:5500' 
+}))
 
 app.use('/api', authRoutes)
 app.use('/api', userRoutes)

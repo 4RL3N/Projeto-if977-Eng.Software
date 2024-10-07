@@ -25,21 +25,32 @@ document.getElementById('passwordForm').addEventListener('submit', async functio
     }
 
     try {
+        // Captura o token do URL
+        const urlParams = new URLSearchParams(window.location.search)
+        const token = urlParams.get('token')
+
+        if (!token) {
+            throw new Error('Token inválido ou não encontrado.')
+        }
+
         // Chamada para a API
-        const response = await fetch('https://sua-api-url.com/definir-senha', {
+        const response = await fetch(`http://localhost:4000/api/confirmar-email/${token}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ password })
+            body: JSON.stringify({ senha: password })
         })
 
+        const data = await response.json()
+
         if (!response.ok) {
-            throw new Error('Erro ao criar a senha. Tente novamente mais tarde.')
+            throw new Error(data.error || 'Erro ao criar a senha. Tente novamente mais tarde.')
         }
 
         // Sucesso - redireciona ou exibe uma mensagem de sucesso
         alert('Senha criada com sucesso!')
+        // window.location.href = '/login' // Exemplo de redirecionamento após o sucesso
 
     } catch (error) {
         errorMessage.textContent = error.message
