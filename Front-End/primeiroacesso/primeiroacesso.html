@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Primeiro Acesso</title>
+    <link rel="stylesheet" href="primeiroacesso.css">
+</head>
+<body>
+    <img src="../img/backlogin.png" alt="Plano de Fundo" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; object-fit: cover;">
+    <div class="container">
+        <h1>Primeiro acesso</h1>
+        <form id="accessForm">
+            <label for="email">Email</label>
+            <input type="input" id="email" name="email" placeholder="exemplo@cin.ufpe.br" required>
+            <div class="input-container">
+                <div class="input-group">
+                    <label for="nome">Digite seu nome</label>
+                    <input type="twoboxes" id="nome" name="nome" placeholder="Fulano de Tal da Silva" required>
+                </div>
+                <div class="input-group">
+                    <label for="cpf">Digite seu CPF</label>
+                    <input type="twoboxes" id="cpf" name="cpf" placeholder="00000000000" required>
+                </div>
+            </div>
+            <button type="submit">Enviar</button>
+            <p class="error-message" id="error-message"></p>
+        </form>
+    </div>
+    <script src="primeiroacesso.js"></script>
+</body>
+</html>
