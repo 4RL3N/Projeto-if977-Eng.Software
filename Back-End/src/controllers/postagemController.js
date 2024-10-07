@@ -55,9 +55,9 @@ export const listarPostagensComFiltros = async (req, res) => {
 
 
 export const criarPostagem = async (req, res) => {
-  const { titulo, desc, categoria, valor, contato, cidade, universidade,  bairro, acomodacao, tipo_acomodacao} = req.body
+  const { titulo, desc,  valor, contato, cidade, universidade,  bairro, acomodacao, tipo_acomodacao, rua, numero} = req.body
 
-  if (!titulo || !desc || !categoria || !valor || !contato || !universidade || !cidade || !bairro || !acomodacao || !tipo_acomodacao) {
+  if (!titulo || !desc ||!valor || !contato || !universidade || !cidade || !bairro || !acomodacao || !tipo_acomodacao ||!numero ||!rua) {
     return res.status(400).json({ error: 'Todos os campos obrigatórios devem ser preenchidos' })
   }
 

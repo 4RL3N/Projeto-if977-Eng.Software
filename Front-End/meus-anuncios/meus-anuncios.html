@@ -36,22 +36,25 @@
             <span class="close">&times;</span>
             <h2>Publique seu Anúncio</h2>
             <form id="publicarForm">
+                <!-- Acomodação e Tipo de Acomodação -->
                 <div class="filter-group">
                     <label for="acomodacao">Acomodação:</label>
-                    <select id="acomodacao" name="acomodacao">
+                    <select id="acomodacao" name="acomodacao" required>
                         <option value="">Escolher tipos de acomodação</option>
                         <option value="Individual">Individual</option>
                         <option value="Compartilhada">Compartilhada</option>
                     </select>
                 </div>
                 <div class="filter-group">
-                    <label for="tipoAcomodacao">Selecione tipo de acomodação:</label>
-                    <select id="tipoAcomodacao" name="tipoAcomodacao">
+                    <label for="tipoAcomodacao">Tipo de Acomodação:</label>
+                    <select id="tipoAcomodacao" name="tipo_acomodacao" required>
                         <option value="">Escolher tipo de acomodação</option>
                         <option value="Quarto">Quarto</option>
                         <option value="Casa">Casa</option>
                     </select>
                 </div>
+
+                <!-- Endereço -->
                 <fieldset>
                     <legend>Endereço</legend>
                     <div class="filter-group">
@@ -79,24 +82,29 @@
                         <input type="text" id="numero" name="numero" required>
                     </div>
                 </fieldset>
+
+                <!-- Informações Adicionais -->
                 <fieldset>
                     <legend>Informações Adicionais</legend>
                     <div class="filter-group">
-                        <label for="universidade">Universidade público alvo:</label>
-                        <select id="universidade" name="universidade">
+                        <label for="universidade">Universidade:</label>
+                        <select id="universidade" name="universidade" required>
                             <option value="">Escolher universidade</option>
                             <option value="UFPE">UFPE</option>
                             <option value="UFRPE">UFRPE</option>
                         </select>
                     </div>
                     <div class="filter-group">
-                        <label for="valor">Valor da acomodação:</label>
-                        <input type="text" id="valor" name="valor" placeholder="Ex: 0,00" required>
+                        <label for="valor">Valor da Acomodação:</label>
+                        <input type="number" id="valor" name="valor" placeholder="Ex: 0.00" required>
                     </div>
                     <div class="filter-group">
-                        <label for="descricao">Descrição e Fotos:</label>
-                        <textarea id="descricao" name="descricao" placeholder="Digite a descrição aqui..." required></textarea>
-                        <input type="file" id="fotos" name="fotos" multiple>
+                        <label for="descricao">Descrição:</label>
+                        <textarea id="descricao" name="desc" placeholder="Digite a descrição aqui..." required></textarea>
+                    </div>
+                    <div class="filter-group">
+                        <label for="fotos">Fotos:</label>
+                        <input type="file" id="fotos" name="fotos" accept="image/*" multiple>
                     </div>
                 </fieldset>
                 <button type="submit" class="btn-submit">Publicar</button>
