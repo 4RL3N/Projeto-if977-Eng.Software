@@ -15,6 +15,7 @@ model Cliente{
   email String @unique
   senha String
   categoria String @default("Usuario")
+  emailisvalid  Boolean
   postagens Postagem[]
 
 }
@@ -31,6 +32,7 @@ model Postagem {
   criadoEm DateTime @default(now())
   atualizadoEm DateTime @updatedAt
   bairro String
+  universidade String
   acomodacao String
   tipo_acomodacao String
   cliente Cliente @relation(fields: [clienteId], references: [id])

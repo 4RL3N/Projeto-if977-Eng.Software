@@ -4,7 +4,7 @@ import { authenticateAdmin } from '../middlewares/adminAuthMiddleware.js'
 
 import { upload } from '../config/multer.js' 
 import { handleUploadError } from '../middlewares/handleUploadErrorMiddleware.js'
-import { listarPostagensDoUsuario, listarTodasPostagens, listarPostagensComFiltros, criarPostagem, editarPostagem, deletarPostagem, aprovarPostagem, desaprovarPostagem, obterPostagemPorId, adicionarImagem } from '../controllers/postagemController.js'
+import { listarPostagensDoUsuario, listarTodasPostagens, listarPostagensComFiltros, criarPostagem, deletarPostagem, aprovarPostagem, desaprovarPostagem, obterPostagemPorId, adicionarImagem } from '../controllers/postagemController.js'
 
 const router = express.Router()
 
@@ -15,7 +15,7 @@ router.get('/postagem/:id', authenticateUser, obterPostagemPorId)
 
 router.post('/criar-post', authenticateUser, criarPostagem)
 
-router.patch('/editar-post/:id', authenticateUser, editarPostagem)
+
 router.patch('/aprovar-post/:id', authenticateAdmin, aprovarPostagem)
 router.patch('/desaprovar-post/:id', authenticateAdmin, desaprovarPostagem)
 router.patch('/adicionar-imagem/:id', authenticateUser, upload, handleUploadError, adicionarImagem)

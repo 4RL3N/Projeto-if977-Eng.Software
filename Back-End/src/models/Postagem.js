@@ -11,6 +11,7 @@ const postagemSchema = new Schema({
   fotos: { type: [String] },
   criadoEm: { type: Date, default: Date.now },
   atualizadoEm: { type: Date, default: Date.now },
+  universidade: {type: String, required: true},
   bairro: { type: String, required: true },
   acomodacao: { 
     type: String, 

@@ -30,12 +30,12 @@ export const listarPostagensDoUsuario = async (req, res) => {
 }
 
 export const listarPostagensComFiltros = async (req, res) => {
-  const { cidade, bairro, faculdade, acomodacao, tipo_acomodacao } = req.query
+  const { cidade, bairro, universidade, acomodacao, tipo_acomodacao } = req.query
   const filtros = { autorizada: true }
 
   if (cidade) filtros.cidade = cidade
   if (bairro) filtros.bairro = bairro
-  if (faculdade) filtros.faculdade = faculdade
+  if (universidade) filtros.universidade = universidade
   if (acomodacao) filtros.acomodacao = acomodacao
   if (tipo_acomodacao) filtros.tipo_acomodacao = tipo_acomodacao
 
@@ -55,9 +55,9 @@ export const listarPostagensComFiltros = async (req, res) => {
 
 
 export const criarPostagem = async (req, res) => {
-  const { titulo, desc, categoria, valor, contato, cidade, bairro, acomodacao, tipo_acomodacao} = req.body
+  const { titulo, desc, categoria, valor, contato, cidade, universidade,  bairro, acomodacao, tipo_acomodacao} = req.body
 
-  if (!titulo || !desc || !categoria || !valor || !contato || !cidade || !bairro || !acomodacao || !tipo_acomodacao) {
+  if (!titulo || !desc || !categoria || !valor || !contato || !universidade || !cidade || !bairro || !acomodacao || !tipo_acomodacao) {
     return res.status(400).json({ error: 'Todos os campos obrigatórios devem ser preenchidos' })
   }
 
@@ -73,6 +73,7 @@ export const criarPostagem = async (req, res) => {
       bairro,
       acomodacao,
       tipo_acomodacao,
+      universidade,
       fotos: [], 
       cliente: req.userId
     })
@@ -86,38 +87,7 @@ export const criarPostagem = async (req, res) => {
 }
 
 
-export const editarPostagem = async (req, res) => {
-  const { id } = req.params
-  const { titulo, desc, categoria, valor, contato, cidade, bairro, acomodacao, tipo_acomodacao, foto } = req.body
 
-  try {
-    const postagem = await Postagem.findById({ _id: id, cliente: req.userId })
-
-    if (!postagem || postagem.cliente !== req.userId) {
-       
-      return res.status(404).json({ error: 'Postagem não encontrada ou você não tem permissão para editar' })
-    }
-
-    postagem.titulo = titulo || postagem.titulo
-    postagem.desc = desc || postagem.desc
-    postagem.categoria = categoria || postagem.categoria
-    postagem.valor = valor || postagem.valor
-    postagem.contato = contato || postagem.contato
-    postagem.cidade = cidade || postagem.cidade
-    postagem.bairro = bairro || postagem.bairro
-    postagem.acomodacao = acomodacao || postagem.acomodacao
-    postagem.tipo_acomodacao = tipo_acomodacao || postagem.tipo_acomodacao
-    
-
-    const postagemAtualizada = await postagem.save()
-    
-
-    res.status(200).json(postagemAtualizada)
-  } catch (error) {
-    
-    res.status(500).json({ error: 'Erro ao atualizar a postagem' })
-  }
-}
 
 export const deletarPostagem = async (req, res) => {
   const { id } = req.params

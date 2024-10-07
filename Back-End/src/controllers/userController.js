@@ -1,14 +1,7 @@
 import Usuario from "../models/User.js"
 import Postagem from "../models/Postagem.js"
 import Usuario from "../models/User.js"
-import jwt from 'jsonwebtoken'
-import MAIL_USER from "../services/nodemailer.js"
-import MAIL_PASS from "../services/nodemailer.js"
-import MAIL_FROM from "../services/nodemailer.js"
-import MAIL_HOST from "../services/nodemailer.js"
-import MAIL_PORT from "../services/nodemailer.js"
-import JWT_SECRET from "../services/nodemailer.js"
-import nodemailer from 'nodemailer'
+
 
 export const listarDadosUsuario = async (req, res) => {
     try {
@@ -84,48 +77,24 @@ export const deletarUsuario = async (req, res) => {
     }
 }
 
-export const redefinirSenha = async (req, res) => {
-  const { email } = req.body
-
+export const adicionarImagem = async (req, res) => {
   try {
-    // Verificar se o usuário existe
-    const usuario = await Usuario.findOne({ email })
+    const {userId} = req
+    
 
-    if (!usuario) {
-      return res.status(404).json({ message: 'Usuário não encontrado com esse e-mail.' })
+    const usuario = Usuario.findById(userId)
+
+    if (!req.file) {
+      return res.status(400).json({ error: 'Nenhuma imagem enviada' })
     }
 
-    // Gerar token JWT para redefinição de senha (válido por 1 hora)
-    const token = jwt.sign({ userId: usuario._id }, JWT_SECRET, { expiresIn: '1h' })
-    const url = `http://localhost:3000/reset-password/${token}`
+    usuario.foto.push(req.file.location)
 
-    // Configurar Nodemailer para enviar o e-mail
-    const transporter = nodemailer.createTransport({
-      host: MAIL_HOST,  // Definido no .env
-      port: MAIL_PORT,  // Definido no .env
-      auth: {
-        user: MAIL_USER,  // Definido no .env
-        pass: MAIL_PASS   // Definido no .env
-      },
-      secure: false,  // false para TLS
-      tls: {
-        rejectUnauthorized: false
-      }
-    })
+    await Usuario.save()
 
-    // Opções do e-mail
-    const mailOptions = {
-      from: MAIL_FROM,  // Definido no .env
-      to: email,
-      subject: 'Redefinição de Senha',
-      html: `<p>Clique no link para redefinir sua senha: <a href="${url}">Redefinir Senha</a></p>`
-    }
-
-    // Enviar o e-mail
-    await transporter.sendMail(mailOptions)
-    res.status(200).json({ message: 'E-mail de redefinição de senha enviado.' })
-
+    res.status(200).json(usuario)
   } catch (error) {
-    res.status(500).json({ error: 'Erro ao enviar e-mail de redefinição de senha.', detalhes: error })
+    res.status(500).json({ error: 'Erro ao adicionar imagem', detalhe: error.message })
   }
 }
+

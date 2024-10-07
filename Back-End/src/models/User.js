@@ -8,7 +8,8 @@ const usuarioSchema = new Schema({
   categoria: { type: String, enum: ['Admin', 'Usuario'], required: true },
   email: { type: String, required: true, unique: true },
   senha: { type: String, required: true },
-  postagens: [{ type: _Schema.Types.ObjectId, ref: 'Postagem' }]
+  postagens: [{ type: _Schema.Types.ObjectId, ref: 'Postagem' }],
+  emailisvalid:{type: Boolean, required: true}
 })
 
 const Usuario = model('Usuario', usuarioSchema)
