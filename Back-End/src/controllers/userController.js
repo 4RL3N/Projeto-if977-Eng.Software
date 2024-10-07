@@ -1,6 +1,6 @@
 import Usuario from "../models/User.js"
 import Postagem from "../models/Postagem.js"
-import Usuario from "../models/User.js"
+
 
 
 export const listarDadosUsuario = async (req, res) => {

@@ -12,10 +12,11 @@ model Cliente{
   CPF String @unique 
   foto String
   nome String 
-  email String @unique
+  email String 
   senha String
   categoria String @default("Usuario")
-  emailisvalid  Boolean
+  emailisvalid  Boolean @default(false)
+  CPFStatus String
   postagens Postagem[]
 
 }
