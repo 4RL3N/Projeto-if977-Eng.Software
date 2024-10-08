@@ -50,7 +50,7 @@ document.getElementById('passwordForm').addEventListener('submit', async functio
 
         // Sucesso - redireciona ou exibe uma mensagem de sucesso
         alert('Senha criada com sucesso!')
-        // window.location.href = '/login' // Exemplo de redirecionamento após o sucesso
+        window.location.href = '/login' 
 
     } catch (error) {
         errorMessage.textContent = error.message

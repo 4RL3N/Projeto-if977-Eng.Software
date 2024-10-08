@@ -36,7 +36,7 @@ document.getElementById('login-form').addEventListener('submit', async function(
   
       // Exibe mensagem de sucesso e redireciona para a página principal
       alert('Login realizado com sucesso!')
-      window.location.href = '/dashboard' // Redireciona para a página protegida após o login
+      window.location.href = '/filtros' // Redireciona para a página protegida após o login
   
     } catch (error) {
       // Exibe a mensagem de erro
