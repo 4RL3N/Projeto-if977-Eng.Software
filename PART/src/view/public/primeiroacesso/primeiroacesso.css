@@ -2,6 +2,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 0;
     height: 100vh;
     margin: 0;
     font-family: Arial, sans-serif;
@@ -16,6 +17,7 @@ body {
     width: 100%;
     background-color: #fff;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 10;
 }
 
 h1 {
@@ -30,16 +32,16 @@ label {
 }
 
 .input-container {
-    display: flex; /* Habilita o layout flexível */
+    display: flex; /* Layout flexível */
     justify-content: space-between;
 }
 
 .input-group {
-    flex: 1; /* Faz com que cada grupo de inputs ocupe espaço igual */
-    margin-right: 10px; /* Adiciona um espaço entre os grupos de inputs */
+    flex: 1;
+    margin-right: 10px; /* Espaço entre os inputs */
 }
 
-input[type="input"] {
+input[type="input"]{
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
@@ -68,7 +70,7 @@ button {
     border-radius: 25px;
     cursor: pointer;
     font-size: 16px;
-    transition: background-color 0.5s; /* Adiciona a transição para o background-color */
+    transition: background-color 0.5s; /* Transição para o background-color */
 }
 
 button:hover {
