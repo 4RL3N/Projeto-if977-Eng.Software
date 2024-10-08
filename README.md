@@ -1,57 +1,73 @@
-# Plataforma de Organização de Informaçãoes no E-mail do CIn-UFPE
+# Plataforma de Acomodação e Residência Para Todos (PART)
 
-O projeto visa criar uma plataforma inovadora para organizar e gerenciar eficientemente as entradas de email na universidade, inicialmente focada no Centro de Informática (CIn) da Universidade Federal de Pernambuco (UFPE).
+A **PART** é uma plataforma criada com o intuito de facilitar a busca por moradia para estudantes que se deslocam de suas cidades de origem para estudar nas capitais. A plataforma permite que esses estudantes encontrem repúblicas, casas, quartos ou parceiros para divisão de aluguel, com filtros avançados e opções personalizadas. A proposta da PART é fornecer uma alternativa ágil e prática para resolver o desafio de moradia para estudantes, substituindo métodos tradicionais como panfletos. A solução passou por concepção, prototipagem, desenvolvimento e testes com usuários finais para entender a causa raiz do problema.
 
 ## Índice
 
 - [Sobre o Projeto](#sobre-o-projeto)
-- [Início Rápido](#inicio-rapido)
 - [Tecnologias Utilizadas](#tecnologias-utilizadas)
+- [Pré-requisitos](#pré-requisitos)
 - [Instalação](#instalação)
-- [Como Usar](#como-usar)
-- [Documentação](#documentacao)
-- [Contribuição](#contribuição)
-- [Licença](#licenca)
+- [Documentação](#documentação)
+- [Licença](#licença)
 - [Autores](#autores)
-- [FAQ](#faq)
 - [Estado do Projeto](#estado-do-projeto)
 
 ## Sobre o Projeto
 
-Atualmente, o fluxo de emails no ambiente acadêmico é intenso e desorganizado. Estudantes, professores e funcionários do CIn da UFPE recebem uma quantidade massiva de emails diariamente, que variam desde avisos importantes e oportunidades acadêmicas até notificações de eventos e mensagens de "achados e perdidos". Esse cenário causa uma grande sobrecarga de informações, perda de oportunidades, e prioridades misturadas.
+A PART oferece uma solução que facilita e agiliza a busca por acomodações para estudantes universitários, permitindo a conexão direta entre proprietários e estudantes. Através de um sistema de filtros avançados e opções personalizadas, os estudantes podem encontrar moradias que atendam às suas necessidades, como quartos individuais ou compartilhados. A plataforma foi desenvolvida com o foco na experiência do usuário, após testes e validações com os próprios estudantes para compreender suas dificuldades e expectativas ao buscar moradia.
 
-## Início Rápido
+## Pré-requisitos
 
-...
+*Deixe em branco*
 
-### Pré-requisitos
+## Instalação
 
-...
-
-### Instalação
-
-...
+*Deixe em branco*
 
 ## Tecnologias Utilizadas
 
-...
+### Front-End
+- **HTML**: Linguagem de marcação que estrutura o conteúdo da página.
+- **CSS**: Estiliza os elementos visuais da plataforma, tornando a interface mais atraente e funcional.
+- **JavaScript**: Linguagem de programação que adiciona interatividade ao site, como filtros e validação de formulários.
 
-## Como usar
+### Back-End
+- **JavaScript**: Também utilizado no servidor para lidar com a lógica do sistema e requisições.
+- **Node.js**: Um ambiente de execução para JavaScript no servidor, permitindo a construção de uma aplicação escalável e de alta performance.
+- **Prisma**: Um ORM (Object-Relational Mapping) que facilita a comunicação entre o back-end e o banco de dados.
 
-...
+### Autenticação
+- **JWT (JSON Web Token)**: Utilizado para autenticar e autorizar usuários de maneira segura através de tokens.
 
-### Funcionalidades
+### Banco de Dados
+- **MongoDB**: Banco de dados NoSQL escolhido pela sua flexibilidade, escalabilidade, e pela capacidade de lidar com grandes volumes de dados não estruturados.
 
-...
+### Testes
+- **Jest**: Framework de testes que permite a criação de testes unitários e integrados para garantir a qualidade do código.
+- **Supertest**: Ferramenta usada para testar as APIs da aplicação, garantindo que os endpoints funcionem corretamente.
+
+## Funcionalidades
+
+A plataforma possui as seguintes funcionalidades para resolver o problema de busca por moradia estudantil:
+- **Facilidade e Agilidade na Busca**: Os estudantes podem aplicar filtros e encontrar acomodações adequadas rapidamente.
+- **Conexões Facilitadas**: Conexão direta entre alunos e proprietários de imóveis, com informações claras para contato externo.
+- **Opções Personalizadas**: A plataforma oferece opções customizáveis de pesquisa, como quartos compartilhados ou individuais.
 
 ## Documentação
 
-[Clique aqui](https://github.com/4RL3N/Projeto-if977-Eng.Software/tree/main/Documenta%C3%A7%C3%A3o) para conferir a documentação do projeto.
+- [Clique aqui]() para conferir a documentação do Front-End do projeto.
+- [Clique aqui]() para conferir a documentação do Back-End do projeto.
+- [Clique aqui]() para ter acesso à concepção (protótipo) do projeto.
+- [Clique aqui]() para ter acesso ao PM Canvas do projeto.
+- [Clique aqui]() para acessar o Trello com backlog e atividades do projeto.
 
 ## Licença
-Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
+
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](https://github.com/4RL3N/Projeto-if977-Eng.Software/blob/main/LICENSE) para mais detalhes.
 
 ## Autores
+
 <table>
   <tr>
     <td align="center">
@@ -69,10 +85,10 @@ Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes
     <td align="center">
       <img src="https://avatars.githubusercontent.com/u/121072900?v=4" width="100px;" alt="Gustavo Diego"/><br />
       <b>Gustavo Diego</b><br />
-       <td align="center">
+    </td>
+    <td align="center">
       <img src="https://avatars.githubusercontent.com/u/131627751?v=4" width="100px;" alt="Hyan"/><br />
       <b>Hyan Lucas</b><br />
-    </td>
     </td>
     <td align="center">
       <img src="https://avatars.githubusercontent.com/u/83255127?v=4" width="100px;" alt="Mariana Marinho"/><br />
@@ -80,12 +96,6 @@ Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes
     </td>
   </tr>
 </table>
-Se você tiver alguma dúvida ou sugestão, sinta-se à vontade para entrar em contato:
-...
-
-## FAQ
-
-...
 
 ## Estado do Projeto
 
