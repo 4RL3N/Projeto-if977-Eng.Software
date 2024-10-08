@@ -6,7 +6,6 @@ A **PART** é uma plataforma criada com o intuito de facilitar a busca por morad
 
 - [Sobre o Projeto](#sobre-o-projeto)
 - [Tecnologias Utilizadas](#tecnologias-utilizadas)
-- [Pré-requisitos](#pré-requisitos)
 - [Instalação](#instalação)
 - [Documentação](#documentação)
 - [Licença](#licença)
@@ -17,13 +16,32 @@ A **PART** é uma plataforma criada com o intuito de facilitar a busca por morad
 
 A PART oferece uma solução que facilita e agiliza a busca por acomodações para estudantes universitários, permitindo a conexão direta entre proprietários e estudantes. Através de um sistema de filtros avançados e opções personalizadas, os estudantes podem encontrar moradias que atendam às suas necessidades, como quartos individuais ou compartilhados. A plataforma foi desenvolvida com o foco na experiência do usuário, após testes e validações com os próprios estudantes para compreender suas dificuldades e expectativas ao buscar moradia.
 
-## Pré-requisitos
-
-*Deixe em branco*
-
 ## Instalação
 
-*Deixe em branco*
+1. Clone o repositório:
+
+```bash
+git clone https://github.com/4RL3N/Projeto-if977-Eng.Software.git
+```
+
+2. Instale as dependências do npm:
+
+```bash
+npm install
+```
+
+3. Execute o servidor local:
+
+```bash
+npm start
+```
+
+4. Abra o navegador e acesse o localhost para visualizar o projeto:
+
+```bash
+http://localhost:3000
+```
+
 
 ## Tecnologias Utilizadas
 
