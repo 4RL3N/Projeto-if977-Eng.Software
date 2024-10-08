@@ -10,7 +10,7 @@
     <div class="sidebar">
         <nav>
             <ul>
-                <li><a href="#"><img src="../img/Search.png" alt="Filtrar" class="sidebar-icon"> Filtrar Anúncios</a></li>
+                <li><a href="../filtros/filtros-anuncio.html"><img src="../img/Search.png" alt="Filtrar" class="sidebar-icon"> Filtrar Anúncios</a></li>
                 <li><a href="#" class="active"><img src="../img/Icon - Contas.png" alt="Anúncios" class="sidebar-icon"> Meus Anúncios</a></li>
                 <li><a href="#"><img src="../img/Edit.png" alt="Editar" class="sidebar-icon"> Editar Conta</a></li>
                 <li><a href="#"><img src="../img/Good Quality.png" alt="Aprovações" class="sidebar-icon"> Aprovações</a></li>
@@ -36,22 +36,6 @@
             <span class="close">&times;</span>
             <h2>Publique seu Anúncio</h2>
             <form id="publicarForm">
-                <div class="filter-group">
-                    <label for="acomodacao">Acomodação:</label>
-                    <select id="acomodacao" name="acomodacao">
-                        <option value="">Escolher tipos de acomodação</option>
-                        <option value="Individual">Individual</option>
-                        <option value="Compartilhada">Compartilhada</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="tipoAcomodacao">Selecione tipo de acomodação:</label>
-                    <select id="tipoAcomodacao" name="tipoAcomodacao">
-                        <option value="">Escolher tipo de acomodação</option>
-                        <option value="Quarto">Quarto</option>
-                        <option value="Casa">Casa</option>
-                    </select>
-                </div>
                 <fieldset>
                     <legend>Endereço</legend>
                     <div class="filter-group">
@@ -92,6 +76,22 @@
                     <div class="filter-group">
                         <label for="valor">Valor da acomodação:</label>
                         <input type="text" id="valor" name="valor" placeholder="Ex: 0,00" required>
+                    </div>
+                    <div class="filter-group">
+                        <label for="acomodacao">Acomodação:</label>
+                        <select id="acomodacao" name="acomodacao" required>
+                            <option value="">Escolher acomodação</option>
+                            <option value="Quarto">Quarto</option>
+                            <option value="Casa">Casa</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="tipoAcomodacao">Tipo de Acomodação:</label>
+                        <select id="tipoAcomodacao" name="tipoAcomodacao" required>
+                            <option value="">Escolher tipo de acomodação</option>
+                            <option value="Individual">Individual</option>
+                            <option value="Compartilhado">Compartilhado</option>
+                        </select>
                     </div>
                     <div class="filter-group">
                         <label for="descricao">Descrição e Fotos:</label>

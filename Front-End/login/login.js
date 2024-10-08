@@ -16,7 +16,7 @@ document.getElementById('login-form').addEventListener('submit', async function(
     }
   
     try {
-      // Chamada para a API (substitua com a URL correta da sua API)
+      
       const response = await fetch('http://localhost:4000/api/login', {
         method: 'POST',
         headers: {
