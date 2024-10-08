@@ -2,7 +2,7 @@ import { Schema as _Schema, model } from 'mongoose'
 const Schema = _Schema
 
 const postagemSchema = new Schema({
-
+  titulo: {type: String, required: true},
   desc: { type: String, required: true },
   
   valor: { type: Number, required: true },

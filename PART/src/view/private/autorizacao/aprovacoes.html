@@ -16,9 +16,7 @@
                 <li id="aprovacoes-aba" style="display: none;">
                     <a href="/autorizacao"><img src="../img/Good Quality.png" alt="Aprovações" class="sidebar-icon"> Aprovações</a>
                 </li>
-                
                 <li><a href="#" id="logout-button"><img src="../img/Logout Rounded.png" alt="Sair" class="sidebar-icon"> Sair</a></li>
-
             </ul>
         </nav>
     </div>
@@ -26,6 +24,8 @@
         <h1>Aprovações</h1>
         <div id="postings-container"></div>
     </div>
+    
+    
     <div id="reject-modal" class="modal hidden">
         <div class="modal-content">
             <h2>Motivo da Desaprovação</h2>
@@ -36,10 +36,19 @@
             </div>
         </div>
     </div>
+
+   
+    <div id="ad-details-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <div class="post-images" id="post-images"></div>
+            <div class="post-details" id="post-details"></div>
+        </div>
+    </div>
     
+    <!-- Seus scripts -->
     <script src="aprovacoes.js"></script>
     <script src="../logout.js"></script>
     <script type="module" src="aprovacoes.js"></script>
-
 </body>
 </html>

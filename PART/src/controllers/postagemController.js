@@ -55,10 +55,10 @@ export const listarPostagensComFiltros = async (req, res) => {
 
 
 export const criarPostagem = async (req, res) => {
-  const { desc, valor, cidade, universidade, bairro, acomodacao, tipo_acomodacao, rua, numero } = req.body
+  const { titulo, desc, valor, cidade, universidade, bairro, acomodacao, tipo_acomodacao, rua, numero } = req.body
 
   const camposObrigatorios = {
-    
+    titulo,
     desc,
     valor,
     cidade,
@@ -86,7 +86,7 @@ export const criarPostagem = async (req, res) => {
 
   try {
     const novaPostagem = new Postagem({
-      
+      titulo,
       desc,
     
       valor,

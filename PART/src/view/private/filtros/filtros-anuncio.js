@@ -3,6 +3,13 @@ import { verificarAdmin } from "../verificarAdmin.js";
 document.addEventListener('DOMContentLoaded', async () => {
     verificarAdmin();
     const filtroForm = document.getElementById('filtroForm');
+    const resultadosContainer = document.getElementById('resultados');
+
+    // Elementos do modal
+    const adDetailsModal = document.getElementById('ad-details-modal');
+    const adDetailsCloseButton = adDetailsModal.querySelector('.close-button');
+    const postImagesContainer = document.getElementById('post-images');
+    const postDetailsContainer = document.getElementById('post-details');
 
     filtroForm.addEventListener('submit', async (event) => {
         event.preventDefault();
@@ -43,8 +50,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
 
             const postagens = await response.json();
-            
-            // Manipular a resposta da API (exibir as postagens filtradas)
+
+            // Exibir as postagens filtradas
             exibirPostagens(postagens);
 
         } catch (error) {
@@ -55,9 +62,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Função para exibir as postagens
     function exibirPostagens(postagens) {
-        const resultadosContainer = document.getElementById('resultados');
         resultadosContainer.innerHTML = ''; 
-    
+
         postagens.forEach(postagem => {
             const card = document.createElement('div');
             card.className = 'postagem-card';
@@ -75,13 +81,74 @@ document.addEventListener('DOMContentLoaded', async () => {
                     </div>
                 </div>
             `;
+            // Adiciona o evento de clique para abrir o modal
+            card.addEventListener('click', () => {
+                openAdDetailsModal(postagem);
+            });
             resultadosContainer.appendChild(card);
         });
     }
 
     // Função para exibir mensagem de erro ou aviso
     function exibirMensagem(mensagem) {
-        const resultadosContainer = document.getElementById('resultados');
         resultadosContainer.innerHTML = `<p class="mensagem">${mensagem}</p>`;
     }
+
+    // Funções para o modal de detalhes do anúncio
+    function openAdDetailsModal(postagem) {
+        // Limpar conteúdo anterior
+        postImagesContainer.innerHTML = '';
+        postDetailsContainer.innerHTML = '';
+
+        // Adicionar imagens
+        if (postagem.fotos && postagem.fotos.length > 0) {
+            postagem.fotos.forEach(foto => {
+                const img = document.createElement('img');
+                img.src = foto;
+                img.alt = 'Foto do anúncio';
+                postImagesContainer.appendChild(img);
+            });
+        } else {
+            const noImage = document.createElement('p');
+            noImage.textContent = 'Sem imagens disponíveis.';
+            postImagesContainer.appendChild(noImage);
+        }
+
+        // Formatar datas
+        const criadoEm = postagem.criadoEm ? new Date(postagem.criadoEm).toLocaleDateString('pt-BR') : 'Não informado';
+        const atualizadoEm = postagem.atualizadoEm ? new Date(postagem.atualizadoEm).toLocaleDateString('pt-BR') : 'Não informado';
+
+        // Adicionar detalhes
+        const detailsHTML = `
+            <h2>${postagem.titulo || 'Título não informado'}</h2>
+            <p><strong>Descrição:</strong> ${postagem.desc || 'Não informada'}</p>
+            <p><strong>Valor:</strong> R$ ${postagem.valor || 'Não informado'}</p>
+            <p><strong>Cidade:</strong> ${postagem.cidade || 'Não informada'}</p>
+            <p><strong>Bairro:</strong> ${postagem.bairro || 'Não informado'}</p>
+            <p><strong>Endereço:</strong> ${postagem.rua || 'Não informada'}, ${postagem.numero || ''}</p>
+            <p><strong>Universidade:</strong> ${postagem.universidade || 'Não informada'}</p>
+            <p><strong>Acomodação:</strong> ${postagem.acomodacao || ''} - ${postagem.tipo_acomodacao || ''}</p>
+            <p><strong>Criado em:</strong> ${criadoEm}</p>
+            <p><strong>Atualizado em:</strong> ${atualizadoEm}</p>
+            <p><strong>Contato:</strong> ${postagem.cliente?.contato || 'Não disponível'}</p>
+        `;
+        postDetailsContainer.innerHTML = detailsHTML;
+
+        // Exibir o modal
+        adDetailsModal.classList.remove('hidden');
+    }
+
+    function closeAdDetailsModal() {
+        adDetailsModal.classList.add('hidden');
+    }
+
+    // Evento para fechar o modal de detalhes
+    adDetailsCloseButton.addEventListener('click', closeAdDetailsModal);
+
+    // Fechar o modal ao clicar fora do conteúdo
+    window.addEventListener('click', (event) => {
+        if (event.target == adDetailsModal) {
+            closeAdDetailsModal();
+        }
+    });
 });

@@ -25,6 +25,7 @@ model Cliente{
 
 model Postagem {
   id String @id @default(auto()) @map("_id") @db.ObjectId
+  titulo String
   desc String
   categoria String
   valor Int
