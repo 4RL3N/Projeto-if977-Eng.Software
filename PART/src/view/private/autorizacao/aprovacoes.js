@@ -1,4 +1,7 @@
+import { verificarAdmin } from "../verificarAdmin.js";
+
 document.addEventListener('DOMContentLoaded', async () => {
+    verificarAdmin()
     const postingsContainer = document.getElementById('postings-container');
     const rejectModal = document.getElementById('reject-modal');
     const rejectReasonInput = document.getElementById('reject-reason');

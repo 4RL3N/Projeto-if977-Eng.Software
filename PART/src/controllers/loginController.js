@@ -21,7 +21,7 @@ export const logarUsuario = async (req, res) => {
 
     const token = jwt.sign({ id: usuario._id }, process.env.JWT_SECRET, { expiresIn: '1h' })
     
-    res.status(200).json({ message: 'Login bem-sucedido', token })
+    res.status(200).json({ message: 'Login bem-sucedido', token, usuario })
   } catch (error) {
     console.error('Erro ao realizar login:', error)
     res.status(500).json({ error: 'Erro ao realizar login', details: error })

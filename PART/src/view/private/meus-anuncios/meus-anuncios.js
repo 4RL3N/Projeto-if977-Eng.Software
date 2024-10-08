@@ -1,4 +1,7 @@
+import { verificarAdmin } from "../verificarAdmin.js";
+
 document.addEventListener('DOMContentLoaded', async () => {
+    verificarAdmin();
     const anunciosContainer = document.getElementById('anuncios-container');
     const modal = document.getElementById('modal');
     const btnAbrirModal = document.getElementById('btnAbrirModal');

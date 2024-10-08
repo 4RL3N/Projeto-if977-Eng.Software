@@ -1,4 +1,7 @@
+import { verificarAdmin } from "../verificarAdmin.js";
+
 document.addEventListener('DOMContentLoaded', async () => {
+    verificarAdmin()
     const editarContaForm = document.getElementById('editarContaForm');
     const profilePic = document.querySelector('.profile-pic');
     const uploadImage = document.getElementById('uploadImage');

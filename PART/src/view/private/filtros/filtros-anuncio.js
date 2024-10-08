@@ -1,4 +1,7 @@
-document.addEventListener('DOMContentLoaded', () => {
+import { verificarAdmin } from "../verificarAdmin.js";
+
+document.addEventListener('DOMContentLoaded', async () => {
+    verificarAdmin();
     const filtroForm = document.getElementById('filtroForm');
 
     filtroForm.addEventListener('submit', async (event) => {
