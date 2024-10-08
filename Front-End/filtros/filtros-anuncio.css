@@ -141,3 +141,64 @@ button {
     background-color: #a92b2b;
     color: white;
 }
+
+.postagem-card {
+    border: 2px solid #b22222;
+    border-radius: 25px;
+    display: flex;
+    padding: 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    align-items: center;
+}
+
+.postagem-card-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.postagem-foto {
+    width: 150px;
+    height: 100px;
+    border-radius: 8px;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.postagem-conteudo {
+    flex: 1;
+}
+
+.postagem-tags {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.tag {
+    background-color: #b22222;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+.postagem-acoes {
+    display: flex;
+    align-items: center;
+}
+
+.btn-delete {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.mensagem {
+    font-size: 1.2em;
+    color: #b22222;
+    margin-top: 20px;
+    text-align: center;
+}

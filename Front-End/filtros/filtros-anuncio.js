@@ -30,6 +30,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
+            if (response.status === 404) {
+                exibirMensagem('Nenhuma postagem encontrada com os filtros aplicados.');
+                return;
+            }
+
             if (!response.ok) {
                 throw new Error('Erro ao aplicar os filtros. Tente novamente mais tarde.');
             }
@@ -48,19 +53,32 @@ document.addEventListener('DOMContentLoaded', () => {
     // Função para exibir as postagens
     function exibirPostagens(postagens) {
         const resultadosContainer = document.getElementById('resultados');
-        resultadosContainer.innerHTML = ''; // Limpa resultados anteriores
-
+        resultadosContainer.innerHTML = ''; 
+    
         postagens.forEach(postagem => {
             const card = document.createElement('div');
             card.className = 'postagem-card';
             card.innerHTML = `
-                <h2>${postagem.titulo}</h2>
-                <p>${postagem.desc}</p>
-                <p><strong>Cidade:</strong> ${postagem.cidade}</p>
-                <p><strong>Bairro:</strong> ${postagem.bairro}</p>
-                <p><strong>Contato:</strong> ${postagem.cliente.contato}</p>
+                <div class="postagem-card-container">
+                    <img src="${postagem.fotos[0]}" alt="Imagem da Acomodação" class="postagem-foto">
+                    <div class="postagem-conteudo">
+                        <h2>${postagem.titulo}</h2>
+                        <div class="postagem-tags">
+                            <span class="tag">${postagem.universidade}</span>
+                            <span class="tag">${postagem.acomodacao}</span>
+                            <span class="tag">${postagem.tipo_acomodacao}</span>
+                        </div>
+                        <p>${postagem.desc}</p>
+                    </div>
+                </div>
             `;
             resultadosContainer.appendChild(card);
         });
+    }
+
+    // Função para exibir mensagem de erro ou aviso
+    function exibirMensagem(mensagem) {
+        const resultadosContainer = document.getElementById('resultados');
+        resultadosContainer.innerHTML = `<p class="mensagem">${mensagem}</p>`;
     }
 });

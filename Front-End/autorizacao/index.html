@@ -22,6 +22,17 @@
         <h1>Aprovações</h1>
         <div id="postings-container"></div>
     </div>
+    <div id="reject-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2>Motivo da Desaprovação</h2>
+            <textarea id="reject-reason" placeholder="Digite o motivo" rows="4"></textarea>
+            <div class="modal-buttons">
+                <button id="confirm-reject" class="btn-confirm">Confirmar</button>
+                <button id="cancel-reject" class="btn-cancel">Cancelar</button>
+            </div>
+        </div>
+    </div>
+    
     <script src="aprovacoes.js"></script>
 </body>
 </html>

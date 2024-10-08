@@ -22,21 +22,21 @@
         <h1>Selecione os Filtros</h1>
         <form id="filtroForm" class="filtro-form">
             <div class="filter-group">
-                <label>Acomodação</label>
+                <label>Tipo de Acomodação</label>
                 <div class="options">
-                    <input type="radio" id="acomodacao-individual" name="acomodacao" value="Individual">
-                    <label for="acomodacao-individual">Individual</label>
-                    <input type="radio" id="acomodacao-compartilhado" name="acomodacao" value="Compartilhado">
-                    <label for="acomodacao-compartilhado">Compartilhado</label>
+                    <input type="radio" id="tipo-individual" name="tipoAcomodacao" value="Individual">
+                    <label for="tipo-individual">Individual</label>
+                    <input type="radio" id="tipo-compartilhado" name="tipoAcomodacao" value="Compartilhado">
+                    <label for="tipo-compartilhado">Compartilhado</label>
                 </div>
             </div>
             <div class="filter-group">
-                <label>Tipo de Acomodação</label>
+                <label>Acomodação</label>
                 <div class="options">
-                    <input type="radio" id="tipo-quarto" name="tipoAcomodacao" value="Quarto">
-                    <label for="tipo-quarto">Quarto</label>
-                    <input type="radio" id="tipo-casa" name="tipoAcomodacao" value="Casa">
-                    <label for="tipo-casa">Casa</label>
+                    <input type="radio" id="acomodacao-quarto" name="acomodacao" value="Quarto">
+                    <label for="acomodacao-quarto">Quarto</label>
+                    <input type="radio" id="acomodacao-casa" name="acomodacao" value="Casa">
+                    <label for="acomodacao-casa">Casa</label>
                 </div>
             </div>
             <div class="filter-group">
@@ -69,7 +69,11 @@
                 <button type="reset" class="btn-reset">Limpar filtros</button>
             </div>
         </form>
+        <div id="resultados" class="resultados-container">
+            <!-- Os resultados filtrados aparecerão aqui -->
+        </div>
     </div>
+    
     <script src="filtros-anuncio.js"></script>
 </body>
 </html>

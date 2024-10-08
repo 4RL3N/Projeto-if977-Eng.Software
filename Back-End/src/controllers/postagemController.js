@@ -136,7 +136,7 @@ export const deletarPostagem = async (req, res) => {
 
 export const aprovarPostagem = async (req, res) => {
   const { id } = req.params
-  
+  const {autorizada} = req.body
 
   try {
     const postagem = await Postagem.findById(id)
@@ -146,11 +146,13 @@ export const aprovarPostagem = async (req, res) => {
       return res.status(404).json({ error: 'Postagem não encontrada' })
     }
 
-    postagem.autorizada = true
+    postagem.autorizada = autorizada
+    
     await postagem.save()
 
     res.status(200).json({ message: 'Postagem aprovada com sucesso', postagem })
   } catch (error) {
+    console.log(error)
     res.status(500).json({ error: 'Erro ao aprovar a postagem' })
   }
 }

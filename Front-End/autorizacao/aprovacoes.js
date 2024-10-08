@@ -1,9 +1,25 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const postingsContainer = document.getElementById('postings-container');
+    const rejectModal = document.getElementById('reject-modal');
+    const rejectReasonInput = document.getElementById('reject-reason');
+    const confirmRejectButton = document.getElementById('confirm-reject');
+    const cancelRejectButton = document.getElementById('cancel-reject');
+
+    let currentPostId = null;
 
     try {
-        // Obtendo as postagens da API (substitua a URL pela sua API real)
-        const response = await fetch('https://api.exemplo.com/anuncios-pendentes');
+        // Obtendo as postagens da API
+        const response = await fetch('http://localhost:4000/api/postagens-admin', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Erro ao carregar as postagens.');
+        }
+
         const postings = await response.json();
 
         // Renderizando as postagens
@@ -13,18 +29,19 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             card.innerHTML = `
                 <div class="ad-info">
-                    <img class="ad-image" src="${posting.imageUrl}" alt="Imagem do Anúncio">
+                    <img class="ad-image" src="${posting.fotos[0]}" alt="Imagem do Anúncio">
                     <div class="ad-details">
-                        <h2>${posting.title}</h2>
-                        <p>${posting.description}</p>
+                        <h2>${posting.titulo}</h2>
+                        <p>${posting.desc}</p>
+                        <p><strong>Contato:</strong> ${posting.cliente?.contato || 'Não disponível'}</p>
                     </div>
                 </div>
                 <div class="approve-buttons">
-                    <button class="approve-button accept" data-id="${posting.id}">
-                        <img src="check-icon.png" alt="Aprovar">
+                    <button class="approve-button accept" data-id="${posting._id}">
+                        <img src="../img/check.png" alt="Aprovar">
                     </button>
-                    <button class="approve-button reject" data-id="${posting.id}">
-                        <img src="reject-icon.png" alt="Rejeitar">
+                    <button class="approve-button reject" data-id="${posting._id}">
+                        <img src="../img/Vector.png" alt="Rejeitar">
                     </button>
                 </div>
             `;
@@ -41,9 +58,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
 
         document.querySelectorAll('.approve-button.reject').forEach(button => {
-            button.addEventListener('click', async (event) => {
-                const postId = event.currentTarget.dataset.id;
-                await handleApproval(postId, false);
+            button.addEventListener('click', (event) => {
+                currentPostId = event.currentTarget.dataset.id;
+                openRejectModal();
             });
         });
 
@@ -51,27 +68,59 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error('Erro ao carregar as postagens:', error);
         postingsContainer.innerHTML = '<p>Erro ao carregar as postagens. Tente novamente mais tarde.</p>';
     }
-});
 
-// Função para lidar com a aprovação ou rejeição de um anúncio
-async function handleApproval(postId, isApproved) {
-    try {
-        const response = await fetch(`https://api.exemplo.com/anuncios/${postId}/aprovar`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ approved: isApproved })
-        });
-
-        if (response.ok) {
-            alert(isApproved ? 'Anúncio aprovado!' : 'Anúncio rejeitado!');
-            document.querySelector(`[data-id="${postId}"]`).closest('.card').remove();
-        } else {
-            throw new Error('Erro ao atualizar o status do anúncio.');
-        }
-    } catch (error) {
-        console.error('Erro ao atualizar o status do anúncio:', error);
-        alert('Erro ao atualizar o status do anúncio. Tente novamente.');
+    // Função para abrir o modal de rejeição
+    function openRejectModal() {
+        rejectModal.classList.remove('hidden');
     }
-}
+
+    // Função para fechar o modal de rejeição
+    function closeRejectModal() {
+        rejectModal.classList.add('hidden');
+        rejectReasonInput.value = ''; // Limpar o motivo quando fechar o modal
+        currentPostId = null;
+    }
+
+    // Confirmar rejeição
+    confirmRejectButton.addEventListener('click', async () => {
+        const motivo = rejectReasonInput.value.trim();
+        if (motivo) {
+            await handleApproval(currentPostId, false, motivo);
+            closeRejectModal();
+        } else {
+            alert('Por favor, insira um motivo para a rejeição.');
+        }
+    });
+
+    // Cancelar rejeição
+    cancelRejectButton.addEventListener('click', () => {
+        closeRejectModal();
+    });
+
+    // Função para lidar com a aprovação ou rejeição de um anúncio
+    async function handleApproval(postId, isApproved, motivo = '') {
+        try {
+            const url = isApproved 
+                ? `http://localhost:4000/api/aprovar-post/${postId}`
+                : `http://localhost:4000/api/desaprovar-post/${postId}`;
+            const response = await fetch(url, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                },
+                body: JSON.stringify({ autorizada: isApproved, motivo })
+            });
+
+            if (response.ok) {
+                alert(isApproved ? 'Anúncio aprovado!' : 'Anúncio rejeitado!');
+                document.querySelector(`[data-id="${postId}"]`).closest('.card').remove();
+            } else {
+                throw new Error('Erro ao atualizar o status do anúncio.');
+            }
+        } catch (error) {
+            console.error('Erro ao atualizar o status do anúncio:', error);
+            alert('Erro ao atualizar o status do anúncio. Tente novamente.');
+        }
+    }
+});
