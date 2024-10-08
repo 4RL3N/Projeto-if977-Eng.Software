@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
             event.preventDefault();
 
             // Limpa o token de autenticação ou outros dados relacionados à sessão do localStorage ou cookies
-            localStorage.removeItem('Token'); 
+            localStorage.removeItem('token'); 
 
             // Redireciona para a página de login
             window.location.href = '/login';

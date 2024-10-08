@@ -1,12 +1,17 @@
 import { verificarAdmin } from "../verificarAdmin.js";
 
 document.addEventListener('DOMContentLoaded', async () => {
-    verificarAdmin()
+    verificarAdmin();
     const postingsContainer = document.getElementById('postings-container');
     const rejectModal = document.getElementById('reject-modal');
     const rejectReasonInput = document.getElementById('reject-reason');
     const confirmRejectButton = document.getElementById('confirm-reject');
     const cancelRejectButton = document.getElementById('cancel-reject');
+
+    const adDetailsModal = document.getElementById('ad-details-modal');
+    const adDetailsCloseButton = adDetailsModal.querySelector('.close-button');
+    const postImagesContainer = document.getElementById('post-images');
+    const postDetailsContainer = document.getElementById('post-details');
 
     let currentPostId = null;
 
@@ -50,6 +55,12 @@ document.addEventListener('DOMContentLoaded', async () => {
             `;
 
             postingsContainer.appendChild(card);
+
+            // Evento para abrir detalhes do anúncio
+            const adInfoDiv = card.querySelector('.ad-info');
+            adInfoDiv.addEventListener('click', () => {
+                openAdDetailsModal(posting);
+            });
         });
 
         // Adicionando funcionalidade aos botões de aprovação e rejeição
@@ -103,7 +114,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Função para lidar com a aprovação ou rejeição de um anúncio
     async function handleApproval(postId, isApproved, motivo = '') {
         try {
-            const url = isApproved 
+            const url = isApproved
                 ? `http://localhost:4000/api/aprovar-post/${postId}`
                 : `http://localhost:4000/api/desaprovar-post/${postId}`;
             const response = await fetch(url, {
@@ -126,4 +137,62 @@ document.addEventListener('DOMContentLoaded', async () => {
             alert('Erro ao atualizar o status do anúncio. Tente novamente.');
         }
     }
+
+    // Funções para o modal de detalhes do anúncio
+    function openAdDetailsModal(posting) {
+        // Limpar conteúdo anterior
+        postImagesContainer.innerHTML = '';
+        postDetailsContainer.innerHTML = '';
+    
+        // Adicionar imagens
+        if (posting.fotos && posting.fotos.length > 0) {
+            posting.fotos.forEach(foto => {
+                const img = document.createElement('img');
+                img.src = foto;
+                postImagesContainer.appendChild(img);
+            });
+        } else {
+            const noImage = document.createElement('p');
+            noImage.textContent = 'Sem imagens disponíveis.';
+            postImagesContainer.appendChild(noImage);
+        }
+    
+        // Formatar datas
+        const criadoEm = new Date(posting.criadoEm).toLocaleDateString('pt-BR');
+        const atualizadoEm = new Date(posting.atualizadoEm).toLocaleDateString('pt-BR');
+    
+        // Adicionar detalhes
+        const detailsHTML = `
+            <h2>${posting.titulo}</h2>
+            <p><strong>Descrição:</strong> ${posting.desc || 'Não informada'}</p>
+            <p><strong>Valor:</strong> R$ ${posting.valor || 'Não informado'}</p>
+            <p><strong>Cidade:</strong> ${posting.cidade || 'Não informada'}</p>
+            <p><strong>Bairro:</strong> ${posting.bairro || 'Não informado'}</p>
+            <p><strong>Rua:</strong> ${posting.rua || 'Não informada'}, ${posting.numero || ''}</p>
+            <p><strong>Universidade:</strong> ${posting.universidade || 'Não informada'}</p>
+            <p><strong>Acomodação:</strong> ${posting.acomodacao || ''} - ${posting.tipo_acomodacao || ''}</p>
+            <p><strong>Criado em:</strong> ${criadoEm}</p>
+            <p><strong>Atualizado em:</strong> ${atualizadoEm}</p>
+            <p><strong>Contato:</strong> ${posting.cliente?.contato || 'Não disponível'}</p>
+        `;
+        postDetailsContainer.innerHTML = detailsHTML;
+    
+        // Exibir o modal
+        adDetailsModal.classList.remove('hidden');
+    }
+    
+
+    function closeAdDetailsModal() {
+        adDetailsModal.classList.add('hidden');
+    }
+
+    // Evento para fechar o modal de detalhes
+    adDetailsCloseButton.addEventListener('click', closeAdDetailsModal);
+
+    // Fechar o modal ao clicar fora do conteúdo
+    window.addEventListener('click', (event) => {
+        if (event.target == adDetailsModal) {
+            closeAdDetailsModal();
+        }
+    });
 });

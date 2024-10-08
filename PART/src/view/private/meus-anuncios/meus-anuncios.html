@@ -34,12 +34,25 @@
         <div id="anuncios-container"></div>
     </div>
 
+    <div id="ad-details-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <div class="post-images" id="post-images"></div>
+            <div class="post-details" id="post-details"></div>
+        </div>
+    </div>
+
     <div id="modal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2>Publique seu Anúncio</h2>
             <form id="publicarForm">
                 <fieldset>
+                    <legend>Informações Adicionais</legend>
+                    <div class="filter-group">
+                        <label for="titulo">Título do Anúncio:</label>
+                        <input type="text" id="titulo" name="titulo" placeholder="Digite o título do anúncio" required>
+                    </div>
                     <legend>Endereço</legend>
                     <div class="filter-group">
                         <label for="cep">CEP:</label>

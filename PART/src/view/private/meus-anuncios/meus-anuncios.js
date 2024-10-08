@@ -9,6 +9,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     const publicarForm = document.getElementById('publicarForm');
     const fotosInput = document.getElementById('fotos'); // Input de imagem
 
+    // Elementos do modal de detalhes do anúncio
+    const adDetailsModal = document.getElementById('ad-details-modal');
+    const adDetailsCloseButton = adDetailsModal.querySelector('.close-button');
+    const postImagesContainer = document.getElementById('post-images');
+    const postDetailsContainer = document.getElementById('post-details');
+
     // Abrir o modal ao clicar no botão
     btnAbrirModal.onclick = () => {
         modal.style.display = 'flex';
@@ -32,6 +38,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     
         // Coletar dados do formulário
         const data = {
+            titulo: document.getElementById('titulo').value, 
             desc: document.getElementById('descricao').value,
             valor: parseFloat(document.getElementById('valor').value.replace(',', '.')), // Converter valor para número
             cidade: document.getElementById('cidade').value,
@@ -132,6 +139,13 @@ document.addEventListener('DOMContentLoaded', async () => {
                 `;
 
                 anunciosContainer.appendChild(card);
+
+                // Evento para abrir o modal de detalhes ao clicar no anúncio
+                const adInfoDiv = card.querySelector('.ad-info');
+                adInfoDiv.style.cursor = 'pointer'; // Mudar o cursor para indicar que é clicável
+                adInfoDiv.addEventListener('click', () => {
+                    openAdDetailsModal(anuncio);
+                });
             });
 
             document.querySelectorAll('.delete-button').forEach(button => {
@@ -168,6 +182,63 @@ document.addEventListener('DOMContentLoaded', async () => {
             alert('Erro ao excluir o anúncio. Tente novamente.');
         }
     }
+
+    // Funções para o modal de detalhes do anúncio
+    function openAdDetailsModal(anuncio) {
+        // Limpar conteúdo anterior
+        postImagesContainer.innerHTML = '';
+        postDetailsContainer.innerHTML = '';
+
+        // Adicionar imagens
+        if (anuncio.fotos && anuncio.fotos.length > 0) {
+            anuncio.fotos.forEach(foto => {
+                const img = document.createElement('img');
+                img.src = foto;
+                img.alt = 'Foto do anúncio';
+                postImagesContainer.appendChild(img);
+            });
+        } else {
+            const noImage = document.createElement('p');
+            noImage.textContent = 'Sem imagens disponíveis.';
+            postImagesContainer.appendChild(noImage);
+        }
+
+        // Formatar datas
+        const criadoEm = anuncio.criadoEm ? new Date(anuncio.criadoEm).toLocaleDateString('pt-BR') : 'Não informado';
+        const atualizadoEm = anuncio.atualizadoEm ? new Date(anuncio.atualizadoEm).toLocaleDateString('pt-BR') : 'Não informado';
+
+        // Adicionar detalhes
+        const detailsHTML = `
+            <h2>${anuncio.titulo || 'Título não informado'}</h2>
+            <p><strong>Descrição:</strong> ${anuncio.desc || 'Não informada'}</p>
+            <p><strong>Valor:</strong> R$ ${anuncio.valor || 'Não informado'}</p>
+            <p><strong>Cidade:</strong> ${anuncio.cidade || 'Não informada'}</p>
+            <p><strong>Bairro:</strong> ${anuncio.bairro || 'Não informado'}</p>
+            <p><strong>Endereço:</strong> ${anuncio.rua || 'Não informada'}, ${anuncio.numero || ''}</p>
+            <p><strong>Universidade:</strong> ${anuncio.universidade || 'Não informada'}</p>
+            <p><strong>Acomodação:</strong> ${anuncio.acomodacao || ''} - ${anuncio.tipo_acomodacao || ''}</p>
+            <p><strong>Criado em:</strong> ${criadoEm}</p>
+            <p><strong>Atualizado em:</strong> ${atualizadoEm}</p>
+        `;
+        postDetailsContainer.innerHTML = detailsHTML;
+
+        // Exibir o modal
+        adDetailsModal.classList.remove('hidden');
+    }
+
+    function closeAdDetailsModal() {
+        adDetailsModal.classList.add('hidden');
+    }
+
+    // Evento para fechar o modal de detalhes
+    adDetailsCloseButton.addEventListener('click', closeAdDetailsModal);
+
+    // Fechar o modal ao clicar fora do conteúdo
+    window.addEventListener('click', (event) => {
+        if (event.target == adDetailsModal) {
+            closeAdDetailsModal();
+        }
+    });
 
     carregarAnuncios();
 });
