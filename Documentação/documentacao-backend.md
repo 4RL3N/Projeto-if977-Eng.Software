@@ -1,57 +1,101 @@
 Documentação do Backend - Plataforma de acomodação e residência para todos(PART)
+
 Sumário
+
 Visão Geral do Sistema
+
 Tecnologias Utilizadas
+
 Estrutura de Diretórios
+
 Arquitetura do Sistema
+
 API Endpoints
+
 Banco de Dados
+
 Autenticação e Autorização
+
 Integrações Externas
+
 Deploy e Configurações
+
 Testes
+
 Considerações Finais
+
 1. Visão Geral do Sistema
+2. 
 O projeto busca trazer uma plataforma para estudantes que estão procurando
 moradia próximo a universidade em que estudam, como também busca facilitar
 a vida de donos de repúblicas e/ou residências que estão querendo alugar e
 anunciar para esse público.
+
 Objetivo: Facilitar a busca e o aluguel de repúblicas estudantis.
 Público-Alvo: Estudantes em busca de moradia e donos de imóveis com interesse
 em alugar.
-2. Tecnologias Utilizadas
+
+4. Tecnologias Utilizadas
 Linguagem de programação: Node.js
+
 ORM: Prisma
+
 Banco de dados: MongoDB
+
 Autenticação: JWT (JSON Web Token)
+
 Armazenamento de arquivos: AWS S3
+
 Testes: Jest e Supertest
-1
-3. Estrutura de Diretórios
+
+
+
+6. Estrutura de Diretórios
+7. 
 A pasta src contém a implementação principal do backend, organizada em subpastas para facilitar a modularização e a manutenção do código.
+
 3.1 Estrutura do Diretório src
+
 bash
+
 /src
+
 /config
+
 /controllers
+
 /middlewares
+
 /models
+
 /routes
+
 server.js
-2
+
+
+
 3.2 config/
+
 3.2.1O arquivo multer.js é responsável pela configuração do upload de
 arquivos (fotos) para o serviço de armazenamento em nuvem Amazon
 S3, utilizando o pacote multer em conjunto com multer-s3.
+
 1. Dependências Importadas
+2. 
 S3Client: Cliente da AWS SDK para interagir com o serviço de armazenamento S3.
+
 crypto: Usado para gerar um nome de arquivo único com base em
 um hash criptográfico.
+
 multer: Middleware para fazer o upload de arquivos em Node.js.
+
 multer-s3: Integração do multer com o Amazon S3.
+
 dotenv: Carrega as variáveis de ambiente de um arquivo .env para
 garantir a segurança e flexibilidade na configuração.
-2. Inicialização do Cliente S3
+
+4. Inicialização do Cliente S3
+5. 
 let s3
 try {
 s3 = new S3Client({
@@ -66,11 +110,14 @@ console.error(‘Erro ao inicializar o cliente S3:’, error)
 throw new Error(‘Erro ao configurar o serviço de armazenamento
 S3.’)
 }
+
 S3Client: Inicializa o cliente S3, utilizando as credenciais e a região
 armazenadas nas variáveis de ambiente.
+
 Erro de Inicialização: Caso ocorra um erro ao configurar o cliente S3,
 o sistema lança uma exceção com uma mensagem de erro.
-3. Geração de Nome de Arquivo
+
+6. Geração de Nome de Arquivo
 const generateFileName = (req, file, cb) => {
 crypto.randomBytes(16, (err, hash) => {
 3
@@ -83,6 +130,7 @@ Status 200: Retorna mensagem de sucesso, token JWT e dados do usuário.
 Status 404: Usuário não encontrado.
 Status 401: Senha incorreta.
 Status 500: Erro no servidor.
+
 2. Criar Usuário (POST /api/usuario)
 Descrição: Cria um novo usuário com CPF pendente e email não validado.
 Parâmetros:
@@ -95,7 +143,8 @@ Status 201: Usuário criado e email de confirmação enviado.
 Status 409: CPF já está associado a um email confirmado.
 Status 400: Falta de campos obrigatórios.
 Status 500: Erro no servidor.
-3. Confirmar Email (POST /api/confirmar-email/:token)
+
+4. Confirmar Email (POST /api/confirmar-email/:token)
 Descrição: Confirma o email e define uma nova senha para o usuário.
 Parâmetros:
 token (string): Token JWT enviado no email de confirmação.
@@ -107,7 +156,8 @@ Status 404: Usuário não encontrado.
 Status 409: Email já validado por outro usuário.
 4
 Status 500: Erro no servidor.
-4. Esqueceu a Senha (POST /api/esqueci-senha)
+
+6. Esqueceu a Senha (POST /api/esqueci-senha)
 Descrição: Gera um token e envia um email para redefinição de senha.
 Parâmetros:
 email (string): Email do usuário.
@@ -115,7 +165,8 @@ Resposta:
 Status 200: Email de redefinição de senha enviado.
 Status 404: Usuário não encontrado.
 Status 500: Erro no servidor.
-5. Redefinir Senha (POST /api/redefinir-senha/:token)
+
+8. Redefinir Senha (POST /api/redefinir-senha/:token)
 Descrição: Redefine a senha do usuário usando o token enviado no email.
 Parâmetros:
 token (string): Token JWT enviado no email de redefinição.
@@ -125,10 +176,12 @@ Status 200: Senha redefinida com sucesso.
 Status 400: Senha não fornecida.
 Status 404: Usuário não encontrado.
 Status 500: Erro no servidor.
+
 3.3.2 controllers/postagemController.js
 Listar Todas as Postagens (GET /api/postagens)
 Descrição: Retorna todas as postagens com as informações do cliente (nome e
 contato) que fez a postagem.
+
 Resposta:
 Status 200: Lista de postagens.
 Status 404: Nenhuma postagem encontrada.
@@ -140,6 +193,7 @@ Resposta:
 Status 200: Lista de postagens do usuário.
 Status 404: Nenhuma postagem encontrada para o usuário.
 Status 500: Erro interno no servidor.
+
 3. Listar Postagens com Filtros (GET /api/postagens)
 Descrição: Lista as postagens filtradas pelos parâmetros fornecidos (cidade,
 bairro, universidade, acomodação, tipo de acomodação).
@@ -153,7 +207,8 @@ Resposta:
 Status 200: Lista de postagens filtradas.
 Status 404: Nenhuma postagem encontrada com os filtros aplicados.
 Status 500: Erro interno no servidor.
-4. Criar Postagem (POST /api/criar-postagem)
+
+5. Criar Postagem (POST /api/criar-postagem)
 Descrição: Cria uma nova postagem de acomodação para o usuário autenticado.
 Parâmetros do Corpo (Body):
 desc (string): Descrição da postagem.
@@ -170,7 +225,7 @@ Status 201: Postagem criada com sucesso.
 Status 400: Campos obrigatórios não preenchidos.
 6
 Status 500: Erro ao criar a postagem.
-5. Deletar Postagem (DELETE /api/deletar-postagem/:id)
+6. Deletar Postagem (DELETE /api/deletar-postagem/:id)
 Descrição: Deleta uma postagem pertencente ao usuário autenticado.
 Parâmetros de URL:
 id (string): ID da postagem.
@@ -178,7 +233,7 @@ Resposta:
 Status 200: Postagem deletada com sucesso.
 Status 404: Postagem não encontrada ou o usuário não tem permissão.
 Status 500: Erro ao deletar a postagem.
-6. Aprovar Postagem (PATCH /api/aprovar-postagem/:id)
+7. Aprovar Postagem (PATCH /api/aprovar-postagem/:id)
 Descrição: Aprova ou reprova uma postagem.
 Parâmetros de URL:
 id (string): ID da postagem.
@@ -189,7 +244,8 @@ Resposta:
 Status 200: Postagem aprovada ou reprovada com sucesso.
 Status 404: Postagem não encontrada.
 Status 500: Erro ao aprovar a postagem.
-7. Desaprovar Postagem (PATCH /api/desaprovar-postagem/:id)
+
+9. Desaprovar Postagem (PATCH /api/desaprovar-postagem/:id)
 Descrição: Desaprova uma postagem, adicionando um motivo.
 Parâmetros de URL:
 id (string): ID da postagem.
@@ -201,7 +257,7 @@ Status 400: Motivo é obrigatório.
 Status 404: Postagem não encontrada.
 Status 500: Erro ao desaprovar a postagem.
 7
-8. Obter Postagem por ID (GET /api/postagem/:id)
+10. Obter Postagem por ID (GET /api/postagem/:id)
 Descrição: Retorna uma postagem específica com os detalhes do cliente.
 Parâmetros de URL:
 id (string): ID da postagem.
@@ -209,7 +265,7 @@ Resposta:
 Status 200: Detalhes da postagem.
 Status 404: Postagem não encontrada.
 Status 500: Erro ao obter a postagem.
-9. Adicionar Imagens à Postagem (PATCH /api/adicionar-imagens/:id)
+11. Adicionar Imagens à Postagem (PATCH /api/adicionar-imagens/:id)
 Descrição: Adiciona imagens a uma postagem existente.
 Parâmetros de URL:
 id (string): ID da postagem.
