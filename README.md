@@ -56,11 +56,10 @@ A plataforma possui as seguintes funcionalidades para resolver o problema de bus
 
 ## Documentação
 
-- [Clique aqui]() para conferir a documentação do Front-End do projeto.
+- [Clique aqui](https://github.com/4RL3N/Projeto-if977-Eng.Software/blob/main/Documenta%C3%A7%C3%A3o/Documenta%C3%A7%C3%A3o_FrontEnd.md) para conferir a documentação do Front-End do projeto.
 - [Clique aqui]() para conferir a documentação do Back-End do projeto.
-- [Clique aqui]() para ter acesso à concepção (protótipo) do projeto.
+- [Clique aqui](https://www.figma.com/design/GAqSLdvZqpSrvRynaIySqL/layout_flow?node-id=0-1&t=gviCIdpulffsBN7W-1) para ter acesso à concepção (protótipo) do projeto.
 - [Clique aqui](https://github.com/4RL3N/Projeto-if977-Eng.Software/blob/main/Documenta%C3%A7%C3%A3o/PM_canvas.md) para ter acesso ao PM Canvas do projeto.
-- [Clique aqui]() para acessar o Trello com backlog e atividades do projeto.
 
 ## Licença
 
