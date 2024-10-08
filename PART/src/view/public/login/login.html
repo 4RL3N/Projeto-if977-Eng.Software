@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/login/login.css">
+</head>
+<body>
+    <img src="../img/backlogin.png" alt="Plano de Fundo" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; object-fit: cover;">
+    <div class="login-container">
+        <form id="login-form">
+            <h2>Login</h2>
+            <div class="input-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="aluno@cin.ufpe.br" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Senha</label>
+                <input type="password" id="password" name="password" placeholder="**********" required>
+            </div>
+            <div class="actions">
+                <a href="#" class="forgot-password">Esqueceu sua senha?</a>
+                <a href="../primeiroacesso" class="create-account">Criar Conta</a>
+            </div>
+            <button type="submit" id="login-btn">Entrar</button>
+            <div id="error-message" class="error-message"></div>
+        </form>
+    </div>
+    <script src="login.js"></script>
+</body>
+</html>

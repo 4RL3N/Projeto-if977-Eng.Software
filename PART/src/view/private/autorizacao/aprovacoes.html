@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aprovações</title>
+    <link rel="stylesheet" href="aprovacoes.css">
+</head>
+<body>
+    <div class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="/filtros"><img src="../img/Search.png" alt="Filtrar" class="sidebar-icon"> Filtrar Anúncios</a></li>
+                <li><a href="/meus-anuncios"><img src="../img/Icon - Contas.png" alt="Anúncios" class="sidebar-icon"> Meus Anúncios</a></li>
+                <li><a href="/editar-usuario"><img src="../img/Edit.png" alt="Editar" class="sidebar-icon"> Editar Conta</a></li>
+                <li id="aprovacoes-aba" style="display: none;">
+                    <a href="/autorizacao"><img src="../img/Good Quality.png" alt="Aprovações" class="sidebar-icon"> Aprovações</a>
+                </li>
+                
+                <li><a href="#" id="logout-button"><img src="../img/Logout Rounded.png" alt="Sair" class="sidebar-icon"> Sair</a></li>
+
+            </ul>
+        </nav>
+    </div>
+    <div class="content">
+        <h1>Aprovações</h1>
+        <div id="postings-container"></div>
+    </div>
+    <div id="reject-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2>Motivo da Desaprovação</h2>
+            <textarea id="reject-reason" placeholder="Digite o motivo" rows="4"></textarea>
+            <div class="modal-buttons">
+                <button id="confirm-reject" class="btn-confirm">Confirmar</button>
+                <button id="cancel-reject" class="btn-cancel">Cancelar</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="aprovacoes.js"></script>
+    <script src="../logout.js"></script>
+    <script type="module" src="aprovacoes.js"></script>
+
+</body>
+</html>

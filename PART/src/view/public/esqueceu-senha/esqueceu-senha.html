@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esqueceu sua senha?</title>
+    <link rel="stylesheet" href="esqueceu-senha.css">
+</head>
+<body>
+    <img src="../img/backlogin.png" alt="Plano de Fundo" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; object-fit: cover;">
+    <div class="forgot-password-container">
+        <form id="forgot-password-form">
+            <h2>Esqueceu sua senha?</h2>
+            <div class="input-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="exemplo@cin.ufpe.br" required>
+            </div>
+            <button type="submit" id="send-btn">Enviar</button>
+            <div id="error-message" class="error-message"></div>
+        </form>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Cliente{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  CPF String @unique 
+  foto String[]
+  nome String 
+  email String 
+  senha String
+  categoria String @default("Usuario")
+  emailisvalid  Boolean @default(false)
+  CPFStatus String
+  postagens Postagem[]
+  contato  String @default("undefined")
+  desc String 
+
+}
+
+model Postagem {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  desc String
+  categoria String
+  valor Int
+  contato String
+  cidade String
+  fotos String[]
+  criadoEm DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+  bairro String
+  universidade String
+  acomodacao String
+  tipo_acomodacao String
+  cliente Cliente @relation(fields: [clienteId], references: [id])
+  clienteId String @db.ObjectId
+  autorizada Boolean @default(false)
+  motivo String?
+  numero String
+  rua String
+}
+
+
+

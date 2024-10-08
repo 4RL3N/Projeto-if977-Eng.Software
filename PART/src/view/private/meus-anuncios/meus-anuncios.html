@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Anúncios</title>
+    <link rel="stylesheet" href="meus-anuncios.css">
+</head>
+<body>
+    <div class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="/filtros"><img src="../img/Search.png" alt="Filtrar" class="sidebar-icon"> Filtrar Anúncios</a></li>
+                <li><a href="/meus-anuncios" class="active"><img src="../img/Icon - Contas.png" alt="Anúncios" class="sidebar-icon"> Meus Anúncios</a></li>
+                <li><a href="/editar-usuario"><img src="../img/Edit.png" alt="Editar" class="sidebar-icon"> Editar Conta</a></li>
+                <li id="aprovacoes-aba" style="display: none;">
+                    <a href="/autorizacao"><img src="../img/Good Quality.png" alt="Aprovações" class="sidebar-icon"> Aprovações</a>
+                </li>
+                
+                <li><a href="#"><img src="../img/Logout Rounded.png" alt="Sair" class="sidebar-icon"> Sair</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="content">
+        <h1>Meus Anúncios</h1>
+        <div class="search-bar">
+            <input type="text" id="search" placeholder="Pesquisar">
+            <button id="search-button">
+                <img src="../img/Search.png" alt="Buscar">
+            </button>
+        </div>
+        <button id="btnAbrirModal" class="btn-modal">+ Publicar Anúncio</button>
+        <div id="anuncios-container"></div>
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Publique seu Anúncio</h2>
+            <form id="publicarForm">
+                <fieldset>
+                    <legend>Endereço</legend>
+                    <div class="filter-group">
+                        <label for="cep">CEP:</label>
+                        <input type="text" id="cep" name="cep" placeholder="Ex: 00000000" required>
+                    </div>
+                    <div class="filter-group">
+                        <label for="cidade">Cidade:</label>
+                        <input type="text" id="cidade" name="cidade" required>
+                    </div>
+                    <div class="filter-group">
+                        <label for="estado">Estado:</label>
+                        <input type="text" id="estado" name="estado" required>
+                    </div>
+                    <div class="filter-group">
+                        <label for="bairro">Bairro:</label>
+                        <input type="text" id="bairro" name="bairro" required>
+                    </div>
+                    <div class="filter-group">
+                        <label for="rua">Rua:</label>
+                        <input type="text" id="rua" name="rua" required>
+                    </div>
+                    <div class="filter-group">
+                        <label for="numero">Número:</label>
+                        <input type="text" id="numero" name="numero" required>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Informações Adicionais</legend>
+                    <div class="filter-group">
+                        <label for="universidade">Universidade público alvo:</label>
+                        <select id="universidade" name="universidade">
+                            <option value="">Escolher universidade</option>
+                            <option value="UFPE">UFPE</option>
+                            <option value="UFRPE">UFRPE</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="valor">Valor da acomodação:</label>
+                        <input type="text" id="valor" name="valor" placeholder="Ex: 0,00" required>
+                    </div>
+                    <div class="filter-group">
+                        <label for="acomodacao">Acomodação:</label>
+                        <select id="acomodacao" name="acomodacao" required>
+                            <option value="">Escolher acomodação</option>
+                            <option value="Quarto">Quarto</option>
+                            <option value="Casa">Casa</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="tipoAcomodacao">Tipo de Acomodação:</label>
+                        <select id="tipoAcomodacao" name="tipoAcomodacao" required>
+                            <option value="">Escolher tipo de acomodação</option>
+                            <option value="Individual">Individual</option>
+                            <option value="Compartilhado">Compartilhado</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="descricao">Descrição e Fotos:</label>
+                        <textarea id="descricao" name="descricao" placeholder="Digite a descrição aqui..." required></textarea>
+                        <input type="file" id="fotos" name="fotos" multiple>
+                    </div>
+                </fieldset>
+                <button type="submit" class="btn-submit">Publicar</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="meus-anuncios.js"></script>
+    <script src="../logout.js"></script>
+    <script type="module" src="meus-anuncios.js"></script>
+</body>
+</html>
