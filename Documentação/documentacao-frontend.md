@@ -1,4 +1,4 @@
-# Documentação do Front-End - Projeto de Aluguel de Repúblicas para Estudantes
+# Documentação do Front-End - Plataforma de acomodação e residência para todos(PART)
 
 ## Sumário
 - [Visão Geral do Sistema](#visão-geral-do-sistema)
