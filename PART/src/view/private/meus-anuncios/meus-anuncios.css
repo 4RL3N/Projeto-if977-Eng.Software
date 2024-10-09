@@ -72,13 +72,19 @@ h1 {
 .search-bar button {
     background-color: #a92b2b;
     border: none;
-    border-radius: 0 10px 10px 0;
+    border-radius: 25px;
     cursor: pointer;
     padding: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: background-color 0.3s;
 }
+
+.search-bar button:hover {
+    background-color: #d9534f;
+}
+
 
 .search-bar button img {
     width: 20px;
@@ -184,7 +190,7 @@ h1 {
 }
 
 .btn-modal {
-    background-color: #d9534f;
+    background-color: #B41116;
     color: white;
     border: none;
     padding: 15px 20px;
