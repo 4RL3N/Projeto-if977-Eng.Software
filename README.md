@@ -75,7 +75,7 @@ A plataforma possui as seguintes funcionalidades para resolver o problema de bus
 ## Documentação
 
 - [Clique aqui](https://github.com/4RL3N/Projeto-if977-Eng.Software/blob/main/Documenta%C3%A7%C3%A3o/documentacao-frontend.md) para conferir a documentação do Front-End do projeto.
-- [Clique aqui](https://github.com/4RL3N/Projeto-if977-Eng.Software/blob/main/Documenta%C3%A7%C3%A3o/documentacao-backend.md) para conferir a documentação do Back-End do projeto.
+- [Clique aqui](https://github.com/4RL3N/Projeto-if977-Eng.Software/blob/main/Documenta%C3%A7%C3%A3o/documentacao-backend.md) para conferir a documentação do Back-End (Tecnologias, Arquitetura de Software, Testes e Deploy) do projeto.
 - [Clique aqui](https://www.figma.com/design/GAqSLdvZqpSrvRynaIySqL/layout_flow?node-id=0-1&t=gviCIdpulffsBN7W-1) para ter acesso à concepção (protótipo) do projeto.
 - [Clique aqui](https://github.com/4RL3N/Projeto-if977-Eng.Software/blob/main/Documenta%C3%A7%C3%A3o/pm-canvas-part.md) para ter acesso ao PM Canvas do projeto.
 - [Clique aqui](https://github.com/4RL3N/Projeto-if977-Eng.Software/blob/main/Documenta%C3%A7%C3%A3o/user-stories.md) para ter acesso ao User Stories do projeto.
