@@ -382,6 +382,9 @@ Jest reconhece. Aqui, ele aceita arquivos com as extensões js, json, jsx, ts, t
 e node.
 -  transformIgnorePatterns: Uma matriz que define quais diretórios ou arquivos
 devem ser ignorados pelo transformador. A configuração ‘/node_modules/’ significa que o Jest não transformará os arquivos dentro da pasta node_modules.
+
+![arquitetura](https://github.com/user-attachments/assets/a61e84ea-5228-4bf9-a842-7e3387855600)
+
 ___
 ## 5. API Endpoints
 
