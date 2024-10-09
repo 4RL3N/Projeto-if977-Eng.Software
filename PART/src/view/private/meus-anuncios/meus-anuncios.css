@@ -340,13 +340,13 @@ textarea {
 /*valores*/
 .post-details p {
     margin: 5px 0;
-    color: #333
+    color: #555
 }
 
 /*titulos dos valores*/
 .post-details p strong {
     font-weight: bold;
-    color: #555;
+    color: #333;
 }
 
 .ad-info {
