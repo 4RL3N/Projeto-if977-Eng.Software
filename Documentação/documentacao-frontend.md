@@ -10,7 +10,7 @@
 
 ## 1. Visão Geral do Sistema
 
-Uma breve descrição do projeto, o que ele faz e como o Front-End suporta a funcionalidade. Explique que se trata de uma plataforma de aluguel de repúblicas para estudantes, onde os usuários podem ver e anunciar repúblicas, similar a plataformas como Trivago e OLX.
+O projeto busca trazer uma plataforma para estudantes que estão procurando moradia próximo a universidade em que estudam, como também busca facilitar a vida de donos de repúblicas e/ou residências que estão querendo alugar e anunciar para esse público.O projeto busca trazer uma plataforma para estudantes que estão procurando moradia próximo a universidade em que estudam, como também busca facilitar a vida de donos de repúblicas e/ou residências que estão querendo alugar e anunciar para esse público.
 
 - **Objetivo:** Facilitar a busca e o aluguel de repúblicas estudantis.
 - **Público-Alvo:** Estudantes em busca de moradia e donos de imóveis com interesse em alugar.
