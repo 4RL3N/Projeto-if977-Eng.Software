@@ -7,6 +7,7 @@ A **PART** é uma plataforma criada com o intuito de facilitar a busca por morad
 - [Sobre o Projeto](#sobre-o-projeto)
 - [Tecnologias Utilizadas](#tecnologias-utilizadas)
 - [Instalação](#instalação)
+- [Como acessar no navegador?](#como-acessar-no-navegador?)
 - [Documentação](#documentação)
 - [Licença](#licença)
 - [Autores](#autores)
@@ -42,9 +43,10 @@ npm start
 http://localhost:3000
 ```
 
+## Como acessar no navegador?
+**[Clique aqui](https://part.fly.dev/) para acessar a PART por meio do navegador e deployado.**
 
 ## Tecnologias Utilizadas
-
 ### Front-End
 - **HTML**: Linguagem de marcação que estrutura o conteúdo da página.
 - **CSS**: Estiliza os elementos visuais da plataforma, tornando a interface mais atraente e funcional.
