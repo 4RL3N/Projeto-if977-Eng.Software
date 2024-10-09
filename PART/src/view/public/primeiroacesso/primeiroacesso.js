@@ -5,14 +5,21 @@ document.getElementById('accessForm').addEventListener('submit', async function(
     const nome = document.getElementById('nome').value.trim();
     const cpf = document.getElementById('cpf').value.trim();
     const errorMessage = document.getElementById('error-message');
+    const submitButton = event.target.querySelector('button[type="submit"]');
 
     // Limpa mensagem de erro
     errorMessage.style.display = 'none';
+
+    // Bloqueia o botão para evitar múltiplos envios
+    submitButton.disabled = true;
+    submitButton.textContent = 'Enviando...';
 
     // Validação básica do email
     if (!validateEmail(email)) {
         errorMessage.textContent = 'Por favor, insira um email válido.';
         errorMessage.style.display = 'block';
+        submitButton.disabled = false;
+        submitButton.textContent = 'Enviar';
         return;
     }
 
@@ -20,19 +27,19 @@ document.getElementById('accessForm').addEventListener('submit', async function(
     if (!validateCPF(cpf)) {
         errorMessage.textContent = 'Por favor, insira um CPF válido.';
         errorMessage.style.display = 'block';
+        submitButton.disabled = false;
+        submitButton.textContent = 'Enviar';
         return;
     }
 
     try {
-        // Chamada para a API (substitua 'API_URL' pela URL real)
-        const response = await fetch('http://localhost:4000/api/criar-usuario', {
+        const response = await fetch('https://part.fly.dev/api/criar-usuario', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ email, nome, CPF: cpf }),
         });
-        
 
         if (response.ok) {
             alert('Usuário criado com sucesso! Verifique seu email para confirmar a conta.');
@@ -44,16 +51,18 @@ document.getElementById('accessForm').addEventListener('submit', async function(
     } catch (error) {
         errorMessage.textContent = 'Erro de rede ou servidor. Tente novamente mais tarde.';
         errorMessage.style.display = 'block';
+    } finally {
+        // Habilita o botão novamente e restaura o texto original
+        submitButton.disabled = false;
+        submitButton.textContent = 'Enviar';
     }
 });
 
-// Função simples para validar email
 function validateEmail(email) {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
 }
 
-// Função simples para validar CPF (adapte conforme necessário)
 function validateCPF(cpf) {
     const regex = /^\d{3}\.\d{3}\.\d{3}\-\d{2}$/;
     return regex.test(cpf);

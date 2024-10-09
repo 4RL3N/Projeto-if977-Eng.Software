@@ -26,15 +26,14 @@ document.getElementById('passwordForm').addEventListener('submit', async functio
 
     try {
         // Captura o token do URL
-        const urlParams = new URLSearchParams(window.location.search)
-        const token = urlParams.get('token')
+        const token = window.location.pathname.split('/').pop()
 
         if (!token) {
             throw new Error('Token inválido ou não encontrado.')
         }
 
         // Chamada para a API
-        const response = await fetch(`http://localhost:4000/api/confirmar-email/${token}`, {
+        const response = await fetch(`https://part.fly.dev/api/confirmar-email/${token}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -50,7 +49,7 @@ document.getElementById('passwordForm').addEventListener('submit', async functio
 
         // Sucesso - redireciona ou exibe uma mensagem de sucesso
         alert('Senha criada com sucesso!')
-        window.location.href = '/login' 
+        window.location.href = '/' 
 
     } catch (error) {
         errorMessage.textContent = error.message

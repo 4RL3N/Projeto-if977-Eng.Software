@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         try {
             // Enviando os dados para a API
-            const response = await fetch(`http://localhost:4000/api/postagens?${queryParams.toString()}`, {
+            const response = await fetch(`https://part.fly.dev/api/postagens?${queryParams.toString()}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`

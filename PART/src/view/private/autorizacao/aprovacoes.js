@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     try {
         // Obtendo as postagens da API
-        const response = await fetch('http://localhost:4000/api/postagens-admin', {
+        const response = await fetch('https://part.fly.dev/api/postagens-admin', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -115,8 +115,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     async function handleApproval(postId, isApproved, motivo = '') {
         try {
             const url = isApproved
-                ? `http://localhost:4000/api/aprovar-post/${postId}`
-                : `http://localhost:4000/api/desaprovar-post/${postId}`;
+                ? `https://part.fly.dev/api/aprovar-post/${postId}`
+                : `https://part.fly.dev/api/desaprovar-post/${postId}`;
             const response = await fetch(url, {
                 method: 'PATCH',
                 headers: {
