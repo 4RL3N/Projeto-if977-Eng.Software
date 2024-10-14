@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         };
     
         try {
-            const response = await fetch('http://localhost:4000/api/criar-post', {
+            const response = await fetch('https://part.fly.dev/api/criar-post', {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         try {
-            const response = await fetch(`http://localhost:4000/api/adicionar-imagem/${anuncioId}`, {
+            const response = await fetch(`https://part.fly.dev/api/adicionar-imagem/${anuncioId}`, {
                 method: 'PATCH',
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Função para carregar anúncios
     async function carregarAnuncios() {
         try {
-            const response = await fetch('http://localhost:4000/api/minhas-postagens', {
+            const response = await fetch('https://part.fly.dev/api/minhas-postagens', {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     async function deleteAnuncio(anuncioId) {
         try {
-            const response = await fetch(`http://localhost:4000/api/deletar-post/${anuncioId}`, {
+            const response = await fetch(`https://part.fly.dev/api/deletar-post/${anuncioId}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`,

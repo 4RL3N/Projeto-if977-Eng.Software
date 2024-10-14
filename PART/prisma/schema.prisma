@@ -9,7 +9,7 @@ datasource db {
 
 model Cliente{
   id String @id @default(auto()) @map("_id") @db.ObjectId
-  CPF String @unique 
+  CPF String  
   foto String[]
   nome String 
   email String 

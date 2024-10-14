@@ -9,11 +9,12 @@ dotenv.config()
 let s3
 
 try {
+ 
   s3 = new S3Client({
     region: process.env.AWS_DEFAULT_REGION,
     credentials: {
-      accessKeyId: process.env.AWS_ACESS_KEY_ID,
-      secretAccessKey: process.env.AWS_SECRET_ACESS_KEY
+      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
     }
   })
 } catch (error) {

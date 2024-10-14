@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Faz a requisição para a API para buscar os dados do usuário
     try {
-        const response = await fetch('http://localhost:4000/api/dados-usuario', {
+        const response = await fetch('https://part.fly.dev/api/dados-usuario', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             formData.append('fotos', file);
 
             try {
-                const response = await fetch(`http://localhost:4000/api/adicionar-imagem`, {
+                const response = await fetch(`https://part.fly.dev/api/adicionar-imagem`, {
                     method: 'PATCH',
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         try {
             // Enviando os dados para a API
-            const response = await fetch('http://localhost:4000/api/editar-usuario', {
+            const response = await fetch('https://part.fly.dev/api/editar-usuario', {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',

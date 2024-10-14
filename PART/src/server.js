@@ -13,7 +13,7 @@ app.use(express.json())
 
 
 
-const allowedOrigins = ['http://127.0.0.1:4000', 'http://127.0.0.1:5500', "http://localhost:4000"]
+const allowedOrigins = ['http://127.0.0.1:4000', 'http://127.0.0.1:5500', "http://localhost:4000", "https://part.fly.dev"]
 app.use(cors({
     origin: function (origin, callback) {
         if (!origin || allowedOrigins.indexOf(origin) !== -1) {
@@ -35,11 +35,11 @@ app.get('/primeiroacesso', (req, res) => {
   res.sendFile(path.join(__dirname, 'view/public/primeiroacesso/primeiroacesso.html'))
 })
 
-app.get('/login', (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'view/public/login/login.html'))
 })
 
-app.get('/definir-senha', (req, res) => {
+app.get('/definir-senha/:token', (req, res) => {
   res.sendFile(path.join(__dirname, 'view/public/definir-senha/definir-senha-inicial.html'))
 })
 
@@ -68,8 +68,9 @@ app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`)
 })
 
+
 mongoose.connect(process.env.DATABASE_URL)
   .then(() => console.log('Conectado ao MongoDB!'))
-  .catch((error) => console.error('Erro ao conectar no MongoDB:', error))
+  .catch((error) => console.error('Erro ao conectar no MongoDB:', error, process.env.DATABASE_URL))
 
 export default app

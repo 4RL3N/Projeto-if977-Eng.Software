@@ -127,7 +127,7 @@ button {
 }
 
 .btn-submit:hover {
-    background-color: #8c1f1f;
+    background-color: #d9534f;
 }
 
 .btn-reset {
@@ -259,18 +259,26 @@ button {
 
 .post-details {
     text-align: left;
+    border: 2px solid #B41116;
+    border-radius: 25px;
+    padding: 10px;
+    margin-bottom: 10px; /* Espaçamento entre as linhas */
+    line-height: 1.5; /* Altura da linha para espaçamento vertical */
 }
 
+/*titulo do post*/
 .post-details h2 {
     margin-bottom: 10px;
-    color: #2d2d2d;
+    color: #B41116;
 }
 
+/*valores*/
 .post-details p {
     margin: 5px 0;
     color: #555;
 }
 
+/*titulos dos valores*/
 .post-details p strong {
     font-weight: bold;
     color: #333;

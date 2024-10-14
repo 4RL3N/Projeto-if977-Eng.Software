@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
             localStorage.removeItem('token'); 
 
             // Redireciona para a página de login
-            window.location.href = '/login';
+            window.location.href = '/';
         });
     }
 });
